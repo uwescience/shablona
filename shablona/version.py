@@ -59,6 +59,6 @@ MICRO = _version_micro
 VERSION = __version__
 PACKAGES = ['shablona',
             'shablona.tests']
-PACKAGES_DATA = ['shablona': pjoin('data', '*')]
+PACKAGE_DATA = {'shablona': [pjoin('data', '*')]}
 REQUIRES = ["numpy"]
 
