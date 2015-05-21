@@ -63,32 +63,40 @@ def cumgauss(x, mu, sigma):
     Notes
     -----
     Based on: http://en.wikipedia.org/wiki/Normal_distribution#Cumulative_distribution_function
-
+    
+    The cumulative Gaussian function is defined as:: 
+        
+        \Phi(x) = \frac{1}{2} [1 + erf(\frac{x}{\sqrt{2}})]
+        
+    Where, $erf$, the error function is defined as::
+        
+        erf(x) = \frac{1}{\sqrt{\pi}} \int_{-x}^{x} e^{t^2} dt
+     
     """
     return 0.5 * (1 + erf((x - mu)/(np.sqrt(2) * sigma)))
     
     
 def err_func(params, x, y, func):
-        """
-        Error function for fitting a function
+    """
+    Error function for fitting a function
         
-        Parameters
-        ----------
-        params : tuple
-            A tuple with the parameters of `func` according to their order of 
-            input
+    Parameters
+    ----------
+    params : tuple
+        A tuple with the parameters of `func` according to their order of 
+        input
 
-        x : float array 
-            An independent variable. 
+    x : float array 
+        An independent variable. 
         
-        y : float array
-            The dependent variable. 
+    y : float array
+        The dependent variable. 
         
-        func : function
-            A function with inputs: `(x, *params)`
+    func : function
+        A function with inputs: `(x, *params)`
         
-        Returns
-        -------
-        The marginals of the fit to x/y given the params
-        """
-        return y - func(x, *params)
+    Returns
+    -------
+    The marginals of the fit to x/y given the params
+    """
+    return y - func(x, *params)
