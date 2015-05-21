@@ -13,40 +13,44 @@ For the purpose of this explanation, I will assume that you know how to use git 
 The project has the following structure: 
 
 	shablona -
-			  |- `setup.py`
 			  |- `README.md`
-			  |- `LICENSE`
+				|- shablona
+					|- `__init__.py`
+					|- `shablona.py`
+					|- data
+						|- ...
+					|- tests
+						|- ...
 			  |- doc
-				|- `Makefile`
-				|- `conf.py`
-				|- sphinxext
-					|- ...
-				|- _static
-					|- ...
-			|- shablona
-				|- `__init__.py`
-				|- `shablona.py`
-				|- data
-					|- ...
-				|- tests
-					|- ...
-			|- ipynb
-		  		|- ...
+					|- `Makefile`
+					|- `conf.py`
+					|- sphinxext
+						|- ...
+					|- _static
+						|- ...
+			  |- `setup.py`
+			  |- `.travis.yml`
+			  |- `LICENSE`
+			  |- ipynb
+		  			|- ...
+
 
 In the following sections we will examine these elements one by one. First, let's consider the core of the project. This is the code inside of `shablona/shablona.py`. This code is intentionally rather simple.
 
 It's not too important to know what it does, but if you are really interested, you can read all about it [here](http//arokem.github.io/2014-08-12-learn-optimization.html)
 
 
+## Module code
+
+
 ## Project Data
 In this case, the project data is rather small, and recorded in csv files. Thus, it can be stored alongside the module code. Even if the data that you are analyzing is too large, and cannot be effectively tracked with github, you might still want to store some data for testing purposes. 
 
+## Testing 
+
+
 ## Documentation 
 
-## Scripts 
-A scripts directory can be used as a place to experiment with your module code, and as a place to produce scripts that contain a narrative structure, demonstrating the use of the code, or producing scientific results from your code and your data and telling a story with these elements.
-
-## Testing 
 
 ## Installation
 
@@ -65,4 +69,7 @@ You will need to go to the Travis-CI [website]()
 
 ## Licensing
 
-License your code! A repository like this without a license is legally closed-source and cannot be used by others. I hope that is not your intention by following. 
+License your code! A repository like this without a license is legally closed-source and cannot be used by others. I hope that is not your intention by following. Follow Jake's [advice](http://www.astrobetter.com/blog/2014/03/10/the-whys-and-hows-of-licensing-scientific-code/)
+
+## Scripts 
+A scripts directory can be used as a place to experiment with your module code, and as a place to produce scripts that contain a narrative structure, demonstrating the use of the code, or producing scientific results from your code and your data and telling a story with these elements.
