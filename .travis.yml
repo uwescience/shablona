@@ -1,0 +1,31 @@
+sudo: false
+language: python
+deploy:
+  provider: pypi
+  user: arokem
+  password:
+    secure: rypMunN3WhUT51p3GKNDnWg8OvvSIkPFjwWJYd1XHeZ6Q7fbVQzWEXGs88vUWD0pKrJd1OdSfGFRc+Aku5jpG/ck9nXES8T7M5KD/6KhHVYcEJnHBFSiepjnF8a/XlVchc5eQD0d2nyYw5hamqHXYwglBMVSjfh1X2oDmAAhiv8=
+  on:
+    tags: true
+    repo: arokem/shablona
+    all_branches: true
+env:
+- CONDA="python=2.7"
+- CONDA="python=3.3"
+- CONDA="python=3.4"
+before_install:
+- wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh;
+- bash miniconda.sh -b -p $HOME/miniconda
+- export PATH="$HOME/miniconda/bin:$PATH"
+- hash -r
+- conda config --set always_yes yes
+- conda update conda
+- conda info -a
+- conda install numpy scipy matplotlib nose coverage
+- travis_retry pip install coveralls
+install:
+- python setup.py install
+script:
+- nosetests -v --with-coverage --cover-package=shablona
+after_success:
+- coveralls
