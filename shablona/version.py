@@ -1,3 +1,5 @@
+from os.path import join as pjoin
+
 # Format expected by setup.py and doc/source/conf.py: string of form "X.Y.Z"
 _version_major = 0
 _version_minor = 1
@@ -57,4 +59,6 @@ MICRO = _version_micro
 VERSION = __version__
 PACKAGES = ['shablona',
             'shablona.tests']
+PACKAGES_DATA = ['shablona': pjoin('data', '*')]
 REQUIRES = ["numpy"]
+
