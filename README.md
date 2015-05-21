@@ -12,25 +12,25 @@ For the purpose of this explanation, I will assume that you know how to use git 
 
 The project has the following structure: 
 
-shablona - 
-		  |- `setup.py`
-		  |- `README.md`
-		  |- `LICENSE` 
-		  |- doc
-		  	|- `Makefile`
-			|- `conf.py`
-			|- sphinxext
-				|- ... 
-		  	|- _static 
-				|- ...
-		  |- shablona
-		  	|- `__init__.py`
-			|- `shablona.py`
-		  	|- data
-				|- ...
-			|- tests
-				|- ...
-		  |- ipynb
+	shablona -
+			  |- `setup.py`
+			  |- `README.md`
+			  |- `LICENSE`
+			  |- doc
+				|- `Makefile`
+				|- `conf.py`
+				|- sphinxext
+					|- ...
+				|- _static
+					|- ...
+			|- shablona
+				|- `__init__.py`
+				|- `shablona.py`
+				|- data
+					|- ...
+				|- tests
+					|- ...
+			|- ipynb
 		  		|- ...
 
 In the following sections we will examine these elements one by one. First, let's consider the core of the project. This is the code inside of `shablona/shablona.py`. This code is intentionally rather simple.
