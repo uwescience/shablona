@@ -112,28 +112,35 @@ def opt_err_func(params, x, y, func):
     
 class Model(object):
     """ Class for fitting cumulative Gaussian functions to data"""
-    def __init__(data, func=cumgauss):
+    def __init__(self, func=cumgauss):
         """ Initialize a model object 
         
         Parameters
         ----------
-        data : rec array
+        data : Pandas DataFrame 
+            Data from a subjective contrast judgement experiment
         
+        func: callable, optional
+            A function that relates x and y through a set of parameters.
+            Default: :func:`cumgauss`
         """
-        x, y, n = transform_data(data)
-        self.x = x
-        self.y = y
-        self.n = n
+        self.func = func
         
-    def fit():
+    def fit(self, x, y, initial=[0.5, 1]):
+        #x, y, n = transform_data(data)
         params, _ = opt.leastsq(opt_err_func, initial, 
-                            args=(self.x, self.y, cumgauss))
-        return Fit(params, self.func)
+                                args=(x, y, self.func))
+        return Fit(self, params, self.func)
     
     
 class Fit(object):
-    def __init__(params):
+    """
+    Class for representing a fit of a model to data
+    """
+    def __init__(self, model, params, func):
         self.params = params
-        
-    def predict(x):
+        self.func = func
+        self.model = model
+         
+    def predict(self, x):
         return self.func(x, *self.params)

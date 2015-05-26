@@ -25,7 +25,8 @@ def test_transform_data():
     # We can also be a bit more critical, by testing with data that we 
     # generate, and should produce a particular answer:
     my_data = pd.DataFrame(
-        np.array([[0.1, 2], [0.1, 1], [0.2, 2], [0.2, 2], [0.3, 1], [0.3, 1]]),
+        np.array([[0.1, 2], [0.1, 1], [0.2, 2], [0.2, 2], [0.3, 1], 
+                  [0.3, 1]]),
         columns=['contrast1', 'answer'])
     my_x, my_y, my_n = sb.transform_data(my_data)
     npt.assert_equal(my_x, np.array([0.1, 0.2, 0.3]))
@@ -75,3 +76,14 @@ def test_opt_err_func():
     my_err = sb.opt_err_func(my_params, my_x, my_y, not_so_silly_func)
     # Since x and y are equal, the error is zero:
     npt.assert_equal(my_err, np.zeros(my_x.shape[0]))
+    
+    
+def test_Model():
+    """ """
+    M = sb.Model()
+    x = np.linspace(0.1, 0.9, 22)
+    target_mu = 0.5
+    target_sigma = 1
+    target_y = sb.cumgauss(x, target_mu, target_sigma)
+    F = M.fit(x, target_y, initial=[target_mu, target_sigma])
+    npt.assert_equal(F.predict(x), target_y)
