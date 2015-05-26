@@ -87,6 +87,8 @@ You will need to go to the Travis-CI [website]()
 
 
 ## Distribution
+You will need to create a user account on PyPI.
+
 
 [Instructions on deployment from PyPI with Travis](http://docs.travis-ci.com/user/deployment/pypi/).
 
