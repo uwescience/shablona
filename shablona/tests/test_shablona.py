@@ -55,4 +55,32 @@ def test_cum_gauss():
 
 
 def test_opt_err_func():
-    pass
+    
+    # We define a truly silly function, that returns its input, regardless of 
+    # the params:
+    def my_silly_func(x, my_first_silly_param, my_other_silly_param):
+        return x
+    # The silly function takes two parameters and ignores them
+    my_params = [1, 10]
+    my_x = np.linspace(-1, 1, 12)
+    my_y = my_x
+    my_err = sb.opt_err_func(my_params, my_x, my_y, my_silly_func)
+    # Since x and y are equal, the error is zero:
+    npt.assert_equal(my_err, np.zeros(my_x.shape[0]))
+    
+    # Let's consider a slightly less silly function, that implements a linear 
+    # relationship between inputs and outputs:
+    def not_so_silly_func(x, a, b):
+        return x*a + b
+
+    my_params = [1, 10]
+    my_x = np.linspace(-1, 1, 12)
+    # To test this, we calculate the relationship explicitely:
+    my_y = my_x * my_params[0] + my_params[1]
+    my_err = sb.opt_err_func(my_params, my_x, my_y, not_so_silly_func)
+    # Since x and y are equal, the error is zero:
+    npt.assert_equal(my_err, np.zeros(my_x.shape[0]))
+    
+    
+    
+    
