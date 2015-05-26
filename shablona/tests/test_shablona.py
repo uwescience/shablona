@@ -33,7 +33,6 @@ def test_transform_data():
     npt.assert_equal(my_y, np.array([0.5, 0, 1.0]))
     npt.assert_equal(my_n, np.array([2, 2, 2]))
 
-
 def test_cum_gauss():
     sigma = 1
     mu = 0
@@ -87,3 +86,24 @@ def test_Model():
     target_y = sb.cumgauss(x, target_mu, target_sigma)
     F = M.fit(x, target_y, initial=[target_mu, target_sigma])
     npt.assert_equal(F.predict(x), target_y)
+
+
+def test_params_regression():
+    """
+    Test for regressions in model parameter values from provided data
+    """
+
+    model = sb.Model()
+    ortho_x, ortho_y, ortho_n = sb.transform_data(op.join(data_path,
+                                                          'ortho.csv'))
+
+    para_x, para_y, para_n = sb.transform_data(op.join(data_path,
+                                                       'para.csv'))
+
+    ortho_fit = model.fit(ortho_x, ortho_y)
+    para_fit = model.fit(para_x, para_y)
+
+    npt.assert_almost_equal(ortho_fit.params[0], 0.46438638)
+    npt.assert_almost_equal(ortho_fit.params[1], 0.13845926)
+    npt.assert_almost_equal(para_fit.params[0],  0.57456788)
+    npt.assert_almost_equal(para_fit.params[1], 0.13684096)
