@@ -56,6 +56,8 @@ In this case, the project data is rather small, and recorded in csv files. Thus,
 
 For installation and distribution we will use the python standard library `distutils` module. This module uses a `setup.py` file to 
 
+Much more information on packaging Python software can be found in the [Hitchhiker's guide to packaging](https://the-hitchhikers-guide-to-packaging.readthedocs.org).
+
 
 ## Continuous integration
 
@@ -69,7 +71,7 @@ You will need to go to the Travis-CI [website]()
 
 ## Licensing
 
-License your code! A repository like this without a license is legally closed-source and cannot be used by others. I hope that is not your intention by following. Follow Jake's [advice](http://www.astrobetter.com/blog/2014/03/10/the-whys-and-hows-of-licensing-scientific-code/)
+License your code! A repository like this without a license is legally closed-source and cannot be used by others. Follow Jake's [advice](http://www.astrobetter.com/blog/2014/03/10/the-whys-and-hows-of-licensing-scientific-code/)!
 
 ## Scripts 
 A scripts directory can be used as a place to experiment with your module code, and as a place to produce scripts that contain a narrative structure, demonstrating the use of the code, or producing scientific results from your code and your data and telling a story with these elements.
