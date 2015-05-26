@@ -87,11 +87,13 @@ You will need to go to the Travis-CI [website]()
 
 
 ## Distribution
-You will need to create a user account on PyPI.
+
+The main venue for distribution of Python software is the [Python Package Index](https://pypi.python.org/), or PyPI, also lovingly known as "the cheese-shop".  
+
+To distribute your software on PyPI, you will need to create a user account on PyPI. You can upload your software using 
 
 
-[Instructions on deployment from PyPI with Travis](http://docs.travis-ci.com/user/deployment/pypi/).
-
+Using Travis, you can automatically upload your software to PyPI, every time you push a tag of your software to github. The instructions on setting this up can be found [here](http://docs.travis-ci.com/user/deployment/pypi/).
 
 ## Licensing
 

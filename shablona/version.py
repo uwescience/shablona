@@ -25,10 +25,19 @@ CLASSIFIERS = ["Development Status :: 3 - Alpha",
                "Topic :: Scientific/Engineering"]
 
 # Description should be a one-liner:
-description = "shablona: a template for small scientific python projects"
+description = "shablona: a template for small scientific Python projects"
 # Long description will go up on the pypi page
 long_description = """
 
+Shablona
+========
+Shablona is a template project for small scientific Python projects. 
+
+It contains software implementations of an analysis of some simple data, but more importantly, it contains infrastructure for testing, documentation, continuous integration and deployment, which can be easily adapted to use in other projects. 
+
+To get started using these components in your own software, please go to the repository README_. 
+
+.. _README: https://github.com/uwescience/shablona/blob/master/README.md
 
 License
 =======
@@ -38,8 +47,7 @@ for usage, and a DISCLAIMER OF ALL WARRANTIES.
 
 All trademarks referenced herein are property of their respective holders.
 
-Copyright (c) 2015--, Ariel Rokem
-All rights reserved.
+Copyright (c) 2015--, Ariel Rokem, The University of Washington eScience Institute. 
 """
 
 NAME = "shablona"
@@ -47,7 +55,7 @@ MAINTAINER = "Ariel Rokem"
 MAINTAINER_EMAIL = "arokem@gmail.com"
 DESCRIPTION = description
 LONG_DESCRIPTION = long_description
-URL = "http://github.com/arokem/shablona"
+URL = "http://github.com/uwescience/shablona"
 DOWNLOAD_URL = ""
 LICENSE = "MIT"
 AUTHOR = "Ariel Rokem"
