@@ -4,7 +4,7 @@ deploy:
   provider: pypi
   user: arokem
   password:
-    secure: rypMunN3WhUT51p3GKNDnWg8OvvSIkPFjwWJYd1XHeZ6Q7fbVQzWEXGs88vUWD0pKrJd1OdSfGFRc+Aku5jpG/ck9nXES8T7M5KD/6KhHVYcEJnHBFSiepjnF8a/XlVchc5eQD0d2nyYw5hamqHXYwglBMVSjfh1X2oDmAAhiv8=
+    secure: 
   on:
     tags: true
     repo: arokem/shablona
