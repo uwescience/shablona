@@ -1,8 +1,10 @@
 import numpy as np
+import pandas as pd
 from matplotlib import mlab 
 from scipy.special import erf
-
+import scipy.optimize as opt
     
+
 def transform_data(data): 
     """ 
     Function that takes experimental data and gives us the 
@@ -10,8 +12,12 @@ def transform_data(data):
 
     Parameters
     ----------
-    data : rec array 
-        The data with records: `contrast1`, `contrast2` and `answer`
+    data : Pandas DataFrame or string.
+        If this is a DataFrame, it should have the columns `contrast1` and 
+        `answer` from which the dependent and independent variables will be 
+        extracted. If this is a string, it should be the full path to a csv 
+        file that contains data that can be read into a DataFrame with this 
+        specification.
 
     Returns
     -------
@@ -22,6 +28,9 @@ def transform_data(data):
     n : array
         The number of trials in each x,y condition 
     """
+    if isinstance(data, str):
+        data = pd.read_csv(data)
+        
     contrast1 = data['contrast1']
     answers = data['answer']
     
@@ -32,10 +41,9 @@ def transform_data(data):
     for c in x:
         idx = np.where(contrast1 == c)
         n.append(float(len(idx[0])))
-        answer1 = len(np.where(answers[idx] == 1)[0])
+        answer1 = len(np.where(answers[idx[0]] == 1)[0])
         y.append(answer1 / n[-1])
-
-    return x,y,n
+    return x, y, n
     
 
 def cumgauss(x, mu, sigma):
@@ -57,8 +65,8 @@ def cumgauss(x, mu, sigma):
     
     Returns
     -------
-    The cumulative gaussian with mean $\mu$ and variance $\sigma$ evaluate at 
-    all points in `x`. 
+    The cumulative gaussian with mean $\mu$ and variance $\sigma$ evaluated 
+    at all points in `x`. 
     
     Notes
     -----
@@ -76,9 +84,9 @@ def cumgauss(x, mu, sigma):
     return 0.5 * (1 + erf((x - mu)/(np.sqrt(2) * sigma)))
     
     
-def err_func(params, x, y, func):
+def opt_err_func(params, x, y, func):
     """
-    Error function for fitting a function
+    Error function for fitting a function using non-linear optimization
         
     Parameters
     ----------
@@ -100,3 +108,32 @@ def err_func(params, x, y, func):
     The marginals of the fit to x/y given the params
     """
     return y - func(x, *params)
+    
+    
+class Model(object):
+    """ Class for fitting cumulative Gaussian functions to data"""
+    def __init__(data, func=cumgauss):
+        """ Initialize a model object 
+        
+        Parameters
+        ----------
+        data : rec array
+        
+        """
+        x, y, n = transform_data(data)
+        self.x = x
+        self.y = y
+        self.n = n
+        
+    def fit():
+        params, _ = opt.leastsq(opt_err_func, initial, 
+                            args=(self.x, self.y, cumgauss))
+        return Fit(params, self.func)
+    
+    
+class Fit(object):
+    def __init__(params):
+        self.params = params
+        
+    def predict(x):
+        return self.func(x, *self.params)
