@@ -20,7 +20,7 @@ before_install:
 - conda config --set always_yes yes
 - conda update conda
 - conda info -a
-- conda install numpy scipy matplotlib nose coverage
+- conda install numpy scipy matplotlib nose coverage pandas
 - travis_retry pip install coveralls
 install:
 - python setup.py install

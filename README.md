@@ -1,6 +1,5 @@
 # shablona
-
-[![Coverage Status](https://coveralls.io/repos/arokem/shablona/badge.svg)](https://coveralls.io/r/arokem/shablona)
+[![Build Status](https://travis-ci.org/uwescience/shablona.svg?branch=master)](https://travis-ci.org/uwescience/shablona)
 
 Shablona is a template project for small scientific python projects. To use it as a template for your own project, you will need to clone this repository into your computer and follow the instructions at the bottom of this page.
 
@@ -55,9 +54,22 @@ Either way, you can create a `shablona/data` folder in which you can organize th
 
 ## Testing 
 
-The idea behind software testing is that you want to make sure that your code does what you want it to do. Most scientists writing code are neither in a position to writ a complete [specification](http://www.wired.com/2013/01/code-bugs-programming-why-we-need-specs/), because when they start writing their code, they don't quite know what they will discover in their data, and that might affect where they go further. but it does at least specify certain inputs and output relationships that need to hold in your code. Better still, testing allows you to continuously monitor that the input-output relationships described in your tests still hold, as you continue to develop your software. More on that [below](## Continuous integration).
+Most scientists who write software constantly test their code. That is, if you are a scientist writing software, I am sure that you have tried to see how well your code works by running every new function you write, examining the inputs and the outputs of the function, to see if the code runs properly (without error), and to see whether the results make sense. 
 
-In practice, tests go into the `shablona/tests` folder. We recommend using the ['Nose'](http://nose.readthedocs.org/) library for testing. The `nosetests` application traverses the directory tree in which it is issued, looking for files with the names `test_*.py` (typically, something like our `shablona/tests/test_shablona.py`). Within each of these files, it looks for functions named `test_*`. Typically each function in the module would have a . This is sometimes called 'unit testing'. Other tests might check that a particular value is calculated to be the same value over time. This is sometimes called 'regression testing'. We have one such test in `shablona/tests/test_shablona.py` called `test_params_regression`.
+Automated code testing takes this informal practice, makes it formal, and automates it, so that you can make sure that your code does what it is supposed to do, even as you go about making changes around it. 
+
+Most scientists writing code are not really in a position to write a complete [specification](http://www.wired.com/2013/01/code-bugs-programming-why-we-need-specs/) of their software, because when they start writing their code they don't quite know what they will discover in their data, and that might affect how the software evolves. Nor do most scientists have the inclination to write complete specs. Testing serves as a very rough specification, in the sense that it at least specifies certain input/output relationships that need to hold in your code. 
+
+We recommend using the ['Nose'](http://nose.readthedocs.org/) library for testing. The `nosetests` application traverses the directory tree in which it is issued, looking for files with the names `test_*.py` (typically, something like our `shablona/tests/test_shablona.py`). Within each of these files, it looks for functions named `test_*`. Typically each function in the module would have a corresponding test (e.g. `test_transform_data`). This is sometimes called 'unit testing', becasue it independently tests each atomic unit in the software. Other tests might run a more elaborate sequence of functions ('end-to-end testing' if you run through the entire analysis), and check that particular values in the code evaluate to the same values over time. This is sometimes called 'regression testing'. We have one such test in `shablona/tests/test_shablona.py` called `test_params_regression`. Regressions in the code are often canaries in the coal mine, telling you that you need to examine changes in your software dependencies, the platform on which you are running your software, etc.
+
+Test functions should contain assertion statements that check certain relations in the code. Most typically, they will test for equality between a calculation and a return of some function. We recommend using functions from the `numpy.testing` module (which we import as `npt`) to assert certain relations on arrays and floating point numbers. This is because `npt` contains functions that are specialized.
+
+To run the tests on the command line, change your present working directory to the top-level directory of the repository (e.g. `/Users/arokem/code/shablona`), and type:
+
+    nosetests
+
+This will exercise all of the tests in your code directory. If a test fails, you will see a message 
+
 
 ## Documentation 
 
@@ -81,9 +93,11 @@ Much more information on packaging Python software can be found in the [Hitchhik
 
 Travis-CI is a system that can be used to automatically test every revision of your code directly from github, including testing of github pull requests, before they are merged into the `master` branch. This provides you with information needed in order to evaluate contrubutions made by others. It also serves as a source of information for others interested in using or contributing to your project about the degree of test coverage of your project. 
 
-You will need a .travis.yml file. This file contains the 
+You will need a .travis.yml file. This file contains the configuration of your testing environment. This includes the different environments in which you will test the source code (for example, we test `shablona` against Python 2.7, Python 3.3 and Python 3.4). It includes steps that need to be taken before installation of the software. For example, installation of the software dependencies. For `shablona`, we use the [`Miniconda`](http://conda.pydata.org/miniconda.html) software distribution (not to be confused with [`Anaconda`](https://store.continuum.io/cshop/anaconda/), though they are similar and both produced by Continuum).
 
-You will need to go to the Travis-CI [website]()
+You will need to go to the Travis-CI [website](https://travis-ci.org/). You will need to turn on the Travis service in your repo settings.
+
+You will need to go to your account on Travis and flip on the switch that 
 
 
 ## Distribution
