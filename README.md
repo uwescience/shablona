@@ -1,9 +1,11 @@
 ## shablona
 [![Build Status](https://travis-ci.org/uwescience/shablona.svg?branch=master)](https://travis-ci.org/uwescience/shablona)
 
-Shablona is a template project for small scientific python projects. To use it as a template for your own project, you will need to clone this repository into your computer and follow the instructions at the bottom of this page.
+Shablona is a template project for small scientific python projects. The recommendations we make here follow the standards and conventions of much of the scientific Python eco-system. Following these standards and recommendations will make it easier for others to use your code, and can make it easier for you to port your code into other projects and collaborate with other users of this eco-system.
 
-First, let me explain all the different moving parts that make up a small scientific python project, and which allow us to effectively share it with others, test it, document it, and track its evolution.
+To use it as a template for your own project, you will need to clone this repository into your computer and follow the instructions at the [bottom of this page](### Using `shablona` as a template).
+
+First, let me explain all the different moving parts that make up a small scientific python project, and all the elements which allow us to effectively share it with others, test it, document it, and track its evolution.
 
 ### Organization of the  project
 
@@ -32,25 +34,30 @@ The project has the following structure:
 		  			|- ...
 
 
-In the following sections we will examine these elements one by one. First, let's consider the core of the project. This is the code inside of `shablona/shablona.py`. This code is intentionally rather simple.
-
-It's not too important to know what it does, but if you are really interested, you can read all about it [here](http//arokem.github.io/2014-08-12-learn-optimization.html)
-
+In the following sections we will examine these elements one by one. First, let's consider the core of the project. This is the code inside of `shablona/shablona.py`. This code provided in this file is intentionally rather simple. It implements some simple curve-fitting to data from a psychophysical experiment. It's not too important to know what it does, but if you are really interested, you can read all about it [here](http//arokem.github.io/2014-08-12-learn-optimization.html). 
 
 ### Module code
 
-We place the module code in a file called `shablona.py` in directory called `shablona`. This structure is a bit confusing at first, but it is a simple way to create a structure where when we type `import shablona as sb` the classes and functions defined inside of the `shablona.py` file are available in the `sb` namespace. For this to work, we need to also create a file in `__init__.py` which contains code that imports everything in that file into the namespace of the project: 
+We place the module code in a file called `shablona.py` in directory called `shablona`. This structure is a bit confusing at first, but it is a simple way to create a structure where when we type `import shablona as sb` in an interactive Python session, the classes and functions defined inside of the `shablona.py` file are available in the `sb` namespace. For this to work, we need to also create a file in `__init__.py` which contains code that imports everything in that file into the namespace of the project: 
 
     from .shablona import *
 
-We follow the convention that a function is defined in lines that precede the lines that use that function. This helps readability of the code, because you know that if you see some name, the definition of that name will appear earlier in the file, either as a function/variable definition, or as an import from some other module or package.
+In the module code, we follow the convention that a function is defined in lines that precede the lines that use that function. This helps readability of the code, because you know that if you see some name, the definition of that name will appear earlier in the file, either as a function/variable definition, or as an import from some other module or package.
 
 In the case of the shablona module, the main classes defined at the bottom of the file make use of some of the functions defined in preceding lines.
 
+Remember that code will be probably be read more times than it will be written. Make it easy to read (for others, but also for yourself when you come back to it), by following a consistent formatting style. We strongly recommend following the [PEP8 code formatting standard](https://www.python.org/dev/peps/pep-0008/).
+
 ### Project Data
+
 In this case, the project data is rather small, and recorded in csv files. Thus, it can be stored alongside the module code. Even if the data that you are analyzing is too large, and cannot be effectively tracked with github, you might still want to store some data for testing purposes. 
 
-Either way, you can create a `shablona/data` folder in which you can organize the data. Treating your data, and this folder, as 'read only' is a good idea. 
+Either way, you can create a `shablona/data` folder in which you can organize the data. As you can see in the test scripts, and in the analysis scripts, this provides a standard file-system location for the data at:
+
+    import os.path as op
+	import shablona as sb
+	data_path = op.join(sb.__path__[0], 'data')
+
 
 ### Testing 
 
@@ -58,27 +65,55 @@ Most scientists who write software constantly test their code. That is, if you a
 
 Automated code testing takes this informal practice, makes it formal, and automates it, so that you can make sure that your code does what it is supposed to do, even as you go about making changes around it. 
 
-Most scientists writing code are not really in a position to write a complete [specification](http://www.wired.com/2013/01/code-bugs-programming-why-we-need-specs/) of their software, because when they start writing their code they don't quite know what they will discover in their data, and that might affect how the software evolves. Nor do most scientists have the inclination to write complete specs. Testing serves as a very rough specification, in the sense that it at least specifies certain input/output relationships that need to hold in your code. 
+Most scientists writing code are not really in a position to write a complete [specification](http://www.wired.com/2013/01/code-bugs-programming-why-we-need-specs/) of their software, because when they start writing their code they don't quite know what they will discover in their data, and these chance discoveries might affect how the software evolves. Nor do most scientists have the inclination to write complete specs - scientific code often needs to be good enough to cover our use-case, and not any possible use-case. Testing the code serves as a way to provide a reader of the code with very rough specification, in the sense that it at least specifies certain input/output relationships that will certainly hold in your code. 
 
-We recommend using the ['Nose'](http://nose.readthedocs.org/) library for testing. The `nosetests` application traverses the directory tree in which it is issued, looking for files with the names `test_*.py` (typically, something like our `shablona/tests/test_shablona.py`). Within each of these files, it looks for functions named `test_*`. Typically each function in the module would have a corresponding test (e.g. `test_transform_data`). This is sometimes called 'unit testing', becasue it independently tests each atomic unit in the software. Other tests might run a more elaborate sequence of functions ('end-to-end testing' if you run through the entire analysis), and check that particular values in the code evaluate to the same values over time. This is sometimes called 'regression testing'. We have one such test in `shablona/tests/test_shablona.py` called `test_params_regression`. Regressions in the code are often canaries in the coal mine, telling you that you need to examine changes in your software dependencies, the platform on which you are running your software, etc.
+We recommend using the ['Nose'](http://nose.readthedocs.org/) library for testing. The `nosetests` application traverses the directory tree in which it is issued, looking for files with the names that match the pattern `test_*.py` (typically, something like our `shablona/tests/test_shablona.py`). Within each of these files, it looks for functions with names that match the pattern `test_*`. Typically each function in the module would have a corresponding test (e.g. `test_transform_data`). This is sometimes called 'unit testing', becasue it independently tests each atomic unit in the software. Other tests might run a more elaborate sequence of functions ('end-to-end testing' if you run through the entire analysis), and check that particular values in the code evaluate to the same values over time. This is sometimes called 'regression testing'. We have one such test in `shablona/tests/test_shablona.py` called `test_params_regression`. Regressions in the code are often canaries in the coal mine, telling you that you need to examine changes in your software dependencies, the platform on which you are running your software, etc.
 
-Test functions should contain assertion statements that check certain relations in the code. Most typically, they will test for equality between a calculation and a return of some function. We recommend using functions from the `numpy.testing` module (which we import as `npt`) to assert certain relations on arrays and floating point numbers. This is because `npt` contains functions that are specialized.
+Test functions should contain assertion statements that check certain relations in the code. Most typically, they will test for equality between an explicit calculation of some kind and a return of some function. For example, in the `test_cumgauss` function, we test that our implmentation of the cumulative Gaussian function evaluates at the mean minus 1 standard deviation to approximately (1-0.68)/2, which is the theoretical value this calculation should have. We recommend using functions from the `numpy.testing` module (which we import as `npt`) to assert certain relations on arrays and floating point numbers. This is because `npt` contains functions that are specialized for handling `numpy` arrays, and they allow to specify the tolerance of the comparison through the `decimal` key-word argument.
 
 To run the tests on the command line, change your present working directory to the top-level directory of the repository (e.g. `/Users/arokem/code/shablona`), and type:
 
     nosetests
 
-This will exercise all of the tests in your code directory. If a test fails, you will see a message 
+This will exercise all of the tests in your code directory. If a test fails, you will see a message such as:
+
+	.F...
+	======================================================================
+	FAIL: shablona.tests.test_shablona.test_cum_gauss
+	----------------------------------------------------------------------
+	Traceback (most recent call last):
+	  File "/Users/arokem/anaconda/lib/python3.4/site-packages/nose/case.py", line 198, in runTest
+	    self.test(*self.arg)
+	  File "/Users/arokem/source/shablona/shablona/tests/test_shablona.py", line 49, in test_cum_gauss
+	    npt.assert_almost_equal(y[0], (1 - 0.68) / 2, decimal = 3)
+	  File "/Users/arokem/anaconda/lib/python3.4/site-packages/numpy/testing/utils.py", line 490, in assert_almost_equal
+	    raise AssertionError(_build_err_msg())
+	AssertionError: 
+	Arrays are not almost equal to 3 decimals
+	 ACTUAL: 0.15865525393145707
+	 DESIRED: 0.15999999999999998
+
+	----------------------------------------------------------------------
+	Ran 5 tests in 0.395s
+
+This indicates to you that a test has failed. In this case, the calculationg is accurate up to 2 decimal places, but not beyond, so the `decimal` key-word argument needs to be adjusted (or the calculation needs to be made more accurate).
+
+As your code grows and becomes more complicated, you might develop new features that interact with your old features in all kinds of unexpected and surprising ways. As you develop new features of your code, keep running the tests, to make sure that you haven't broken the old features.  Keep writing new tests for your new code, and recording these tests in your testing scripts. That way, you can be confident that even as the software grows, it still keeps doing correctly at least the few things that are codified in the tests.
 
 
 ### Documentation 
 
 Documenting your software is a good idea. Not only as a way to communicate to others about how to use the software, but also as a way of reminding yourself what the issues are that you faced, and how you dealt with them, in a few months/years, when you return to looking at the code. 
 
-To document `shablona` we use the [sphinx documentation system](http://sphinx-doc.org/). You can follw the instructions there on how to set up the system, but we have also already initialized and commited a skeleton documentation system in the `docs` directory.
+The first step in this direction is to document every function in your module. We recommend following the [numpy docstring standard](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt), which specifies in detail. 
 
-Sphinx uses a Makefile to build different outputs of your documentation. For example, if you want to generate the HTML rendering of the documentation (web pages that you can upload to a website to explain the software).
+You can also create a more complete documentation of your software, that contains more elaborate explanations of the logic behind the software, as well as some examples of usage, explanations of the relevant scientific concepts, and references to the relevant literature. To document `shablona` we use the [sphinx documentation system](http://sphinx-doc.org/). You can follow the instructions on the sphinx website, and the example [here](http://matplotlib.org/sampledoc/) to set up the system, but we have also already initialized and commited a skeleton documentation system in the `docs` directory, that you can build upon.
 
+Sphinx uses a `Makefile` to build different outputs of your documentation. For example, if you want to generate the HTML rendering of the documentation (web pages that you can upload to a website to explain the software), you will type: 
+
+	make html
+
+This will generate a set of static webpages in the `doc/_build/html`.
 
 ### Installation
 
@@ -103,25 +138,80 @@ You will need to go back to travis-ci, and flip on the switch on that side as we
 
 The travis output will also report to you about test coverage, if you set it up that way.
 
-You will start getting emails telling you the state of the testing 
+You will start getting emails telling you the state of the testing suite on every pull request for the software, and also when you break the test suite on the `master` branch. That way, you can be pretty sure that the `master` is working (or at least know when it isn't...). 
 
 
 ### Distribution
 
 The main venue for distribution of Python software is the [Python Package Index](https://pypi.python.org/), or PyPI, also lovingly known as "the cheese-shop".  
 
-To distribute your software on PyPI, you will need to create a user account on PyPI. You can upload your software using 
-
+To distribute your software on PyPI, you will need to create a user account on PyPI. You can upload your software using `python setup.py upload`. 
 
 Using Travis, you can automatically upload your software to PyPI, every time you push a tag of your software to github. The instructions on setting this up can be found [here](http://docs.travis-ci.com/user/deployment/pypi/). You will need to install the travis command-line interface 
 
 ### Licensing
 
-License your code! A repository like this without a license is legally closed-source and cannot be used by others. Follow Jake's [advice](http://www.astrobetter.com/blog/2014/03/10/the-whys-and-hows-of-licensing-scientific-code/)!
+License your code! A repository like this without a license maintains copyright to the author, but does not provide others with any conditions under which they can use the software. In this case, we use the MIT license. You can read the conditions of the license in the `LICENSE` file. As you can see, this is not an Apple software license agreement (has anyone ever actually tried to read one of those?). It's actually all quite simple, and boils down to "You can do whatever you want with my software, but I take no responsibility for what you do with my software"
+
+For more details on what you need to think about when considering choosing a license, see this [article](http://www.astrobetter.com/blog/2014/03/10/the-whys-and-hows-of-licensing-scientific-code/)!
 
 ### Scripts 
 
 A scripts directory can be used as a place to experiment with your module code, and as a place to produce scripts that contain a narrative structure, demonstrating the use of the code, or producing scientific results from your code and your data and telling a story with these elements.
 
-For example, this repository contains an [IPython notebook] that reads. You can see this notebook fully rendered [here](https://github.com/uwescience/shablona/blob/master/scripts/Figure1.ipynb).
+For example, this repository contains an [IPython notebook] that reads in some data, and creates a figure. Maybe this is *Figure 1* from some future article? You can see this notebook fully rendered [here](https://github.com/uwescience/shablona/blob/master/scripts/Figure1.ipynb).
+
+
+### Using `shablona` as a template
+
+Let's assume that you want to create a small scientific Python project called `smallish`. Maybe you already have some code that you are interested in plugging into the module file, and some ideas about what the tests might look like.
+
+To use this repository as a template, start by cloning it to your own computer under the name you will want your project to have: 
+
+	git clone https://github.com/uwescience/shablona smallish
+	cd smallish
+
+To point to your own repository on github you will have to issue something like the following: 
+
+    git remote rm origin
+	git remote add origin https://github.com/arokem/smallish
+
+(replace `arokem` with your own Github user name).
+
+Next, you will want to move `shablona/shablona.py` to be called `smallish/smallish.py`
+
+	git mv shablona smallish
+	git mv smallish/shablona.py smallish/smallish.py
+	git mv smallish/tests/test_shablona.py smallish/tests/test_smallish.py
+
+Make a commit recording these changes. Something like: 
+    
+	git commit -a -m"Moved names from `shablona` to `smallish`"
+
+You will probably want to remove all the example data: 
+
+	git rm smallish/data/*
+	git commit -a -m"Removed example `shablona` data"
+
+Possibly, you will want to add some of your own data in there.
+
+You will want to edit a few more places that still have `shablona` in them. Type the following to see where all these files are: 
+
+	git grep shablona
+
+This very file (README.md) should be edited to reflect what your project is about. 
+
+Other places that contain this name include the `doc/conf.py` file, which configures the sphinx documentation, as well as the `doc/Makefile` file (edit carefully!), and the `doc/index.rst` file.
+
+The `.coveragerc` file contains a few mentions of that name, as well as the `.travis.yml` file. This one will also have to be edited to reflect your PyPI credentials (see [above](### Distribution)).
+
+Edit all the mentions of `shablona` in the `shablona/__init__.py` file, and in the `shablona/version.py` file as well.
+
+Finally, you will probably want to change the copyright holder in the `LICENSE` file to be you. You can also replace the text of that file, if it doesn't match your needs. 
+
+At this point, make another commit, and continue to develop your own code based on this template.
+
+
+
+
 
