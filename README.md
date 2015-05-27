@@ -1,11 +1,11 @@
-# shablona
+## shablona
 [![Build Status](https://travis-ci.org/uwescience/shablona.svg?branch=master)](https://travis-ci.org/uwescience/shablona)
 
 Shablona is a template project for small scientific python projects. To use it as a template for your own project, you will need to clone this repository into your computer and follow the instructions at the bottom of this page.
 
 First, let me explain all the different moving parts that make up a small scientific python project, and which allow us to effectively share it with others, test it, document it, and track its evolution.
 
-## Organization of the  project
+### Organization of the  project
 
 The project has the following structure: 
 
@@ -37,7 +37,7 @@ In the following sections we will examine these elements one by one. First, let'
 It's not too important to know what it does, but if you are really interested, you can read all about it [here](http//arokem.github.io/2014-08-12-learn-optimization.html)
 
 
-## Module code
+### Module code
 
 We place the module code in a file called `shablona.py` in directory called `shablona`. This structure is a bit confusing at first, but it is a simple way to create a structure where when we type `import shablona as sb` the classes and functions defined inside of the `shablona.py` file are available in the `sb` namespace. For this to work, we need to also create a file in `__init__.py` which contains code that imports everything in that file into the namespace of the project: 
 
@@ -47,12 +47,12 @@ We follow the convention that a function is defined in lines that precede the li
 
 In the case of the shablona module, the main classes defined at the bottom of the file make use of some of the functions defined in preceding lines.
 
-## Project Data
+### Project Data
 In this case, the project data is rather small, and recorded in csv files. Thus, it can be stored alongside the module code. Even if the data that you are analyzing is too large, and cannot be effectively tracked with github, you might still want to store some data for testing purposes. 
 
 Either way, you can create a `shablona/data` folder in which you can organize the data. Treating your data, and this folder, as 'read only' is a good idea. 
 
-## Testing 
+### Testing 
 
 Most scientists who write software constantly test their code. That is, if you are a scientist writing software, I am sure that you have tried to see how well your code works by running every new function you write, examining the inputs and the outputs of the function, to see if the code runs properly (without error), and to see whether the results make sense. 
 
@@ -71,7 +71,7 @@ To run the tests on the command line, change your present working directory to t
 This will exercise all of the tests in your code directory. If a test fails, you will see a message 
 
 
-## Documentation 
+### Documentation 
 
 Documenting your software is a good idea. Not only as a way to communicate to others about how to use the software, but also as a way of reminding yourself what the issues are that you faced, and how you dealt with them, in a few months/years, when you return to looking at the code. 
 
@@ -80,7 +80,7 @@ To document `shablona` we use the [sphinx documentation system](http://sphinx-do
 Sphinx uses a Makefile to build different outputs of your documentation. For example, if you want to generate the HTML rendering of the documentation (web pages that you can upload to a website to explain the software).
 
 
-## Installation
+### Installation
 
 For installation and distribution we will use the python standard library `distutils` module. This module uses a `setup.py` file to figure out how to install your software on a particular system. For a small project such as this one, managing installation of the software modules and the data is rather simple. 
 
@@ -89,7 +89,7 @@ A `shablona/version.py` contains all of the information needed for the installat
 Much more information on packaging Python software can be found in the [Hitchhiker's guide to packaging](https://the-hitchhikers-guide-to-packaging.readthedocs.org).
 
 
-## Continuous integration
+### Continuous integration
 
 Travis-CI is a system that can be used to automatically test every revision of your code directly from github, including testing of github pull requests, before they are merged into the `master` branch. This provides you with information needed in order to evaluate contrubutions made by others. It also serves as a source of information for others interested in using or contributing to your project about the degree of test coverage of your project. 
 
@@ -106,20 +106,22 @@ The travis output will also report to you about test coverage, if you set it up 
 You will start getting emails telling you the state of the testing 
 
 
-## Distribution
+### Distribution
 
 The main venue for distribution of Python software is the [Python Package Index](https://pypi.python.org/), or PyPI, also lovingly known as "the cheese-shop".  
 
 To distribute your software on PyPI, you will need to create a user account on PyPI. You can upload your software using 
 
 
-Using Travis, you can automatically upload your software to PyPI, every time you push a tag of your software to github. The instructions on setting this up can be found [here](http://docs.travis-ci.com/user/deployment/pypi/).
+Using Travis, you can automatically upload your software to PyPI, every time you push a tag of your software to github. The instructions on setting this up can be found [here](http://docs.travis-ci.com/user/deployment/pypi/). You will need to install the travis command-line interface 
 
-## Licensing
+### Licensing
 
 License your code! A repository like this without a license is legally closed-source and cannot be used by others. Follow Jake's [advice](http://www.astrobetter.com/blog/2014/03/10/the-whys-and-hows-of-licensing-scientific-code/)!
 
-## Scripts 
+### Scripts 
+
 A scripts directory can be used as a place to experiment with your module code, and as a place to produce scripts that contain a narrative structure, demonstrating the use of the code, or producing scientific results from your code and your data and telling a story with these elements.
 
 For example, this repository contains an [IPython notebook] that reads. You can see this notebook fully rendered [here](https://github.com/uwescience/shablona/blob/master/scripts/Figure1.ipynb).
+
