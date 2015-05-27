@@ -93,11 +93,17 @@ Much more information on packaging Python software can be found in the [Hitchhik
 
 Travis-CI is a system that can be used to automatically test every revision of your code directly from github, including testing of github pull requests, before they are merged into the `master` branch. This provides you with information needed in order to evaluate contrubutions made by others. It also serves as a source of information for others interested in using or contributing to your project about the degree of test coverage of your project. 
 
-You will need a .travis.yml file. This file contains the configuration of your testing environment. This includes the different environments in which you will test the source code (for example, we test `shablona` against Python 2.7, Python 3.3 and Python 3.4). It includes steps that need to be taken before installation of the software. For example, installation of the software dependencies. For `shablona`, we use the [`Miniconda`](http://conda.pydata.org/miniconda.html) software distribution (not to be confused with [`Anaconda`](https://store.continuum.io/cshop/anaconda/), though they are similar and both produced by Continuum).
+You will need a .travis.yml file in your repo. This file contains the configuration of your testing environment. This includes the different environments in which you will test the source code (for example, we test `shablona` against Python 2.7, Python 3.3 and Python 3.4). It includes steps that need to be taken before installation of the software. For example, installation of the software dependencies. For `shablona`, we use the [`Miniconda`](http://conda.pydata.org/miniconda.html) software distribution (not to be confused with [`Anaconda`](https://store.continuum.io/cshop/anaconda/), though they are similar and both produced by Continuum).
 
-You will need to go to the Travis-CI [website](https://travis-ci.org/). You will need to turn on the Travis service in your repo settings.
+First, go to the Travis-CI [website](https://travis-ci.org/) and get a Travis user account, linked to your github user account.
 
-You will need to go to your account on Travis and flip on the switch that 
+You will need to set up your github repo to talk to Travis (More explanation + pictures will come here). 
+
+You will need to go back to travis-ci, and flip on the switch on that side as well.
+
+The travis output will also report to you about test coverage, if you set it up that way.
+
+You will start getting emails telling you the state of the testing 
 
 
 ## Distribution
