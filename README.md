@@ -3,7 +3,7 @@
 
 Shablona is a template project for small scientific python projects. The recommendations we make here follow the standards and conventions of much of the scientific Python eco-system. Following these standards and recommendations will make it easier for others to use your code, and can make it easier for you to port your code into other projects and collaborate with other users of this eco-system.
 
-To use it as a template for your own project, you will need to clone this repository into your computer and follow the instructions at the [bottom of this page](### Using `shablona` as a template).
+To use it as a template for your own project, you will need to clone this repository into your computer and follow the instructions at the [bottom of this page](#using-shablona-as-a-template).
 
 First, let me explain all the different moving parts that make up a small scientific python project, and all the elements which allow us to effectively share it with others, test it, document it, and track its evolution.
 
@@ -113,7 +113,14 @@ Sphinx uses a `Makefile` to build different outputs of your documentation. For e
 
 	make html
 
-This will generate a set of static webpages in the `doc/_build/html`.
+This will generate a set of static webpages in the `doc/_build/html`, which you can then upload to a website of your choice. 
+
+Alternatively, [readthedocs.org](https://readthedocs.org) (careful, *not* readthedocs.**com**) is a service that will run sphinx for you, and upload the documentation to their website. To use this service, you will need to register with RTD. After you have done that, you will need to "import your project" from your github account, through the RTD web interface. To make things run smoothly, you also will need to go to the "admin" panel of the project on RTD, and navigate into the "advanced settings" so that you can tell it that your Python configuration file is in `doc/conf.py`: 
+
+![RTD conf](https://github.com/uwescience/shablona/blob/master/doc/_static/RTD-advanced-conf.png)
+
+ http://shablona.readthedocs.org/en/latest/
+
 
 ### Installation
 
