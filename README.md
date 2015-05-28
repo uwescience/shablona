@@ -103,11 +103,13 @@ As your code grows and becomes more complicated, you might develop new features 
 
 ### Documentation 
 
-Documenting your software is a good idea. Not only as a way to communicate to others about how to use the software, but also as a way of reminding yourself what the issues are that you faced, and how you dealt with them, in a few months/years, when you return to looking at the code. 
+Documenting your software is a good idea. Not only as a way to communicate to others about how to use the software, but also as a way of reminding yourself what the issues are that you faced, and how you dealt with them, in a few months/years, when you return to look at the code. 
 
-The first step in this direction is to document every function in your module. We recommend following the [numpy docstring standard](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt), which specifies in detail. 
+The first step in this direction is to document every function in your module code. We recommend following the [numpy docstring standard](https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt), which specifies in detail the inputs/outputs of every function, and specifies how to document additional details, such as references to scientific articles, notes about the mathematics behind the implementation, etc. 
 
-You can also create a more complete documentation of your software, that contains more elaborate explanations of the logic behind the software, as well as some examples of usage, explanations of the relevant scientific concepts, and references to the relevant literature. To document `shablona` we use the [sphinx documentation system](http://sphinx-doc.org/). You can follow the instructions on the sphinx website, and the example [here](http://matplotlib.org/sampledoc/) to set up the system, but we have also already initialized and commited a skeleton documentation system in the `docs` directory, that you can build upon.
+This standard also plays well with a system that allows you to create more comprehensive documentation of your project. Writing such documentation allows you to provide more elaborate explanations of the decisions you made when you were developing the software, as well as provide some examples of usage, explanations of the relevant scientific concepts, and references to the relevant literature. 
+
+To document `shablona` we use the [sphinx documentation system](http://sphinx-doc.org/). You can follow the instructions on the sphinx website, and the example [here](http://matplotlib.org/sampledoc/) to set up the system, but we have also already initialized and commited a skeleton documentation system in the `docs` directory, that you can build upon.
 
 Sphinx uses a `Makefile` to build different outputs of your documentation. For example, if you want to generate the HTML rendering of the documentation (web pages that you can upload to a website to explain the software), you will type: 
 

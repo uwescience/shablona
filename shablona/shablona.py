@@ -3,7 +3,7 @@ import pandas as pd
 from matplotlib import mlab 
 from scipy.special import erf
 import scipy.optimize as opt
-    
+
 
 def transform_data(data): 
     """ 
@@ -65,20 +65,26 @@ def cumgauss(x, mu, sigma):
     
     Returns
     -------
-    The cumulative gaussian with mean $\mu$ and variance $\sigma$ evaluated 
-    at all points in `x`. 
+
+    g : float or array
+        The cumulative gaussian with mean $\\mu$ and variance $\\sigma$ 
+        evaluated at all points in `x`. 
     
     Notes
     -----
     Based on: http://en.wikipedia.org/wiki/Normal_distribution#Cumulative_distribution_function
     
-    The cumulative Gaussian function is defined as:: 
+    The cumulative Gaussian function is defined as:
+    
+    .. math::
+    
+        \\Phi(x) = \\frac{1}{2} [1 + erf(\\frac{x}{\\sqrt{2}})]
         
-        \Phi(x) = \frac{1}{2} [1 + erf(\frac{x}{\sqrt{2}})]
+    Where, $erf$, the error function is defined as:
         
-    Where, $erf$, the error function is defined as::
-        
-        erf(x) = \frac{1}{\sqrt{\pi}} \int_{-x}^{x} e^{t^2} dt
+    .. math::
+    
+        erf(x) = \\frac{1}{\\sqrt{\\pi}} \int_{-x}^{x} e^{t^2} dt
      
     """
     return 0.5 * (1 + erf((x - mu)/(np.sqrt(2) * sigma)))
@@ -105,7 +111,8 @@ def opt_err_func(params, x, y, func):
         
     Returns
     -------
-    The marginals of the fit to x/y given the params
+    float array
+        The marginals of the fit to x/y given the params
     """
     return y - func(x, *params)
     
@@ -120,27 +127,72 @@ class Model(object):
         data : Pandas DataFrame 
             Data from a subjective contrast judgement experiment
         
-        func: callable, optional
+        func : callable, optional
             A function that relates x and y through a set of parameters.
             Default: :func:`cumgauss`
         """
         self.func = func
         
     def fit(self, x, y, initial=[0.5, 1]):
-        #x, y, n = transform_data(data)
+        """ 
+        Fit a Model to data
+        
+        Parameters
+        ----------
+        x : float or array
+           The independent variable: contrast values presented in the 
+           experiment 
+        y : float or array 
+           The dependent variable 
+           
+        Returns
+        -------
+        fit : :class:`Fit` instance
+            A :class:`Fit` object that contains the parameters of the model.
+
+        """
         params, _ = opt.leastsq(opt_err_func, initial, 
                                 args=(x, y, self.func))
-        return Fit(self, params, self.func)
+        return Fit(self, params)
     
     
 class Fit(object):
     """
     Class for representing a fit of a model to data
     """
-    def __init__(self, model, params, func):
-        self.params = params
-        self.func = func
+    def __init__(self, model, params):
+        """ 
+        Initialize a :class:`Fit` object
+        
+        Parameters
+        ----------
+        model : a :class:`Model` instance
+            An object representing the model used
+        
+        params : array or list 
+            The parameters of the model evaluated for the data 
+                    
+        """
         self.model = model
+        self.params = params
          
     def predict(self, x):
-        return self.func(x, *self.params)
+        """ 
+        Predict values of the dependent variable based on values of the 
+        indpendent variable.
+        
+        Parameters
+        ----------
+        x : float or array
+            Values of the independent variable. Can be values presented in 
+            the experiment. For out-of-sample prediction (e.g. in   
+            cross-validation), these can be values 
+            that were not presented in the experiment.
+        
+        Returns
+        -------
+        y : float or array
+            Predicted values of the dependent variable, corresponding to 
+            values of the independent variable.
+        """
+        return self.model.func(x, *self.params)

@@ -46,10 +46,17 @@ help:
 	@echo "  linkcheck  to check all external links for integrity"
 	@echo "  doctest    to run all doctests embedded in the documentation (if enabled)"
 
+
+api:
+	@mkdir -p reference
+	$(PYTHON) tools/build_modref_templates.py shablona reference
+	@echo "Build API docs...done."
+
 clean:
 	rm -rf $(BUILDDIR)/*
+	rm -rf reference/*
 
-html:
+html: api
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
