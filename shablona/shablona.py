@@ -9,9 +9,9 @@ def get_data_path(absolute = True):
     """Use special attribute __file__ to return the path to the module data.
     Optionally, return absolute path, as opposed to relative to the current working directory."""
     if absolute:
-        return op.abspath(__file__)
+        return op.join(op.dirname(op.abspath(__file__)),'data')
     else:
-        return __file__
+        return op.join(op.dirname(__file__),'data')
 
 def transform_data(data): 
     """ 
