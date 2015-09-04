@@ -4,6 +4,16 @@ from matplotlib import mlab
 from scipy.special import erf
 import scipy.optimize as opt
 
+from shablona import CONSTANT1, CONSTANT2
+
+def print_constants():
+    """
+    Function that prints the constants defined by the package.
+    This is a demonstration of the proper way to define package-wide
+    constants and then use them throughout the package."""
+    
+    print 'CONSTANT1: %s' % CONSTANT1
+    print 'CONSTANT2: %s' % CONSTANT2
 
 def transform_data(data): 
     """ 
