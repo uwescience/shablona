@@ -6,6 +6,7 @@ import shablona as sb
 
 data_path = op.join(sb.__path__[0], 'data')
 
+
 def test_constants():
     npt.assert_(sb.CONSTANT1 == 5)
 

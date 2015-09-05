@@ -4,7 +4,7 @@ from matplotlib import mlab
 from scipy.special import erf
 import scipy.optimize as opt
 
-from shablona import CONSTANT1, CONSTANT2
+from .constants import CONSTANT1, CONSTANT2
 
 def print_constants():
     """
