@@ -30,4 +30,4 @@ install:
   - pip install coverage
 
 test_script:
-  - "%PYTHON%/Scripts/nosetests.exe"
+  - nosetests
