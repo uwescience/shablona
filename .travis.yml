@@ -12,6 +12,8 @@ env:
 - CONDA="python=2.7"
 - CONDA="python=3.3"
 - CONDA="python=3.4"
+- CONDA="python=3.5"
+
 before_install:
 - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh;
 - bash miniconda.sh -b -p $HOME/miniconda
