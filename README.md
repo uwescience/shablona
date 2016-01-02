@@ -101,6 +101,26 @@ This indicates to you that a test has failed. In this case, the calculationg is 
 As your code grows and becomes more complicated, you might develop new features that interact with your old features in all kinds of unexpected and surprising ways. As you develop new features of your code, keep running the tests, to make sure that you haven't broken the old features.  Keep writing new tests for your new code, and recording these tests in your testing scripts. That way, you can be confident that even as the software grows, it still keeps doing correctly at least the few things that are codified in the tests.
 
 
+### Styling
+
+It is a good idea to follow the PEP8 standard for code formatting. Common code formatting
+makes code more readable, and using tools such as `flake8` (which combines the tools
+`pep8` and `pyflakes`) can help make your code more readable, avoid extraneous imports
+and lines of code, and overall keep a clean project code-base.
+
+Some projects include `flake8` inside their automated tests, so that every pull request
+is examined for code cleanliness.
+
+In this project, we have run `flake8` most (but not all) files, on most (but not all) checks:
+
+```
+flake8 --ignore N802,N806 `find . -name *.py | grep -v setup.py | grep -v /doc/`
+```
+
+This means, check all .py files, but exclude setup.py and everything in directories named "doc".
+Do all checks except N802 and N806, which enforce lowercase-only names for variables and functions.
+
+
 ### Documentation
 
 Documenting your software is a good idea. Not only as a way to communicate to others about how to use the software, but also as a way of reminding yourself what the issues are that you faced, and how you dealt with them, in a few months/years, when you return to look at the code.
