@@ -71,7 +71,8 @@ def cumgauss(x, mu, sigma):
 
     Notes
     -----
-    Based on: http://en.wikipedia.org/wiki/Normal_distribution#Cumulative_distribution_function
+    Based on:
+    http://en.wikipedia.org/wiki/Normal_distribution#Cumulative_distribution_function
 
     The cumulative Gaussian function is defined as:
 
