@@ -3,7 +3,26 @@ import pandas as pd
 from matplotlib import mlab 
 from scipy.special import erf
 import scipy.optimize as opt
+import os.path as op
 
+def get_data_path(absolute=True):
+    """Use special attribute __file__ to return the path to the module data folder.
+    
+    Parameters
+    ----------
+    absolute : bool
+        If True, return an absolute path, as opposed to a path
+        relative to the current working directory.
+    
+    Returns
+    -------
+    data_path : str
+        Path to the data folder within this module."""
+        
+    if absolute:
+        return op.join(op.dirname(op.abspath(__file__)),'data')
+    else:
+        return op.join(op.dirname(__file__),'data')
 
 def transform_data(data): 
     """ 
