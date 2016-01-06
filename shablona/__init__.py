@@ -1,2 +1,2 @@
-from .shablona import *
-from .version import __version__
+from .shablona import *  # noqa
+from .version import __version__  # noqa
