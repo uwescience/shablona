@@ -21,7 +21,7 @@ The project has the following structure:
 
 	shablona -
 			  |- `README.md`
-				|- shablona
+			  |- shablona
 					|- `__init__.py`
 					|- `shablona.py`
 					|- data
@@ -37,7 +37,7 @@ The project has the following structure:
 						|- ...
 			  |- `setup.py`
 			  |- `.travis.yml`
-				|- `appveyor.yml`
+			  |- `appveyor.yml`
 			  |- `LICENSE`
 			  |- ipynb
 		  			|- ...
