@@ -290,8 +290,18 @@ every pull request for the software, and also when you break the test suite on
 the `master` branch. That way, you can be pretty sure that the `master` is
 working (or at least know when it isn't...).
 
-To also continuously test your code on a Windows system, you can also add a
-`.appveyor` file and activate your repository on [Appveyor](http://www.appveyor.com/).
+You can also continuously test your code on a Windows system. This is done on
+another CI system called [Appveyor](http://www.appveyor.com/). In prinicple, it
+does something that is very similar to what Travis does: downloads your code,
+installs it on a Windows machine, with various versions of python, and runs the
+tests. Appveyor is controlled through another configuration file: the
+`appveyor.yml`. In addition to committing this file into the repository, you
+will need to activate Appveyor for your project. This is done by signing into
+the Appveyor interface with your Github account, clicking on the "projects" tab
+at the top of the page, then clicking on the "+" sign for "New project" and
+selecting the project you would like to add from the menu that appears (you
+might need to give Appveyor the permission to see projects in your Github
+account).
 
 ### Distribution
 
