@@ -84,27 +84,69 @@ In this case, the project data is rather small, and recorded in csv files. Thus,
 Either way, you can create a `shablona/data` folder in which you can organize the data. As you can see in the test scripts, and in the analysis scripts, this provides a standard file-system location for the data at:
 
     import os.path as op
-	import shablona as sb
-	data_path = op.join(sb.__path__[0], 'data')
+	  import shablona as sb
+	  data_path = op.join(sb.__path__[0], 'data')
 
 
 ### Testing
 
-Most scientists who write software constantly test their code. That is, if you are a scientist writing software, I am sure that you have tried to see how well your code works by running every new function you write, examining the inputs and the outputs of the function, to see if the code runs properly (without error), and to see whether the results make sense.
+Most scientists who write software constantly test their code. That is, if you
+are a scientist writing software, I am sure that you have tried to see how well
+your code works by running every new function you write, examining the inputs
+and the outputs of the function, to see if the code runs properly (without
+error), and to see whether the results make sense.
 
-Automated code testing takes this informal practice, makes it formal, and automates it, so that you can make sure that your code does what it is supposed to do, even as you go about making changes around it.
+Automated code testing takes this informal practice, makes it formal, and
+automates it, so that you can make sure that your code does what it is supposed
+to do, even as you go about making changes around it.
 
-Most scientists writing code are not really in a position to write a complete [specification](http://www.wired.com/2013/01/code-bugs-programming-why-we-need-specs/) of their software, because when they start writing their code they don't quite know what they will discover in their data, and these chance discoveries might affect how the software evolves. Nor do most scientists have the inclination to write complete specs - scientific code often needs to be good enough to cover our use-case, and not any possible use-case. Testing the code serves as a way to provide a reader of the code with very rough specification, in the sense that it at least specifies certain input/output relationships that will certainly hold in your code.
+Most scientists writing code are not really in a position to write a complete
+[specification](http://www.wired.com/2013/01/code-bugs-programming-why-we-need-specs/)
+of their software, because when they start writing their code they don't quite
+know what they will discover in their data, and these chance discoveries might
+affect how the software evolves. Nor do most scientists have the inclination to
+write complete specs - scientific code often needs to be good enough to cover
+our use-case, and not any possible use-case. Testing the code serves as a way to
+provide a reader of the code with very rough specification, in the sense that it
+at least specifies certain input/output relationships that will certainly hold
+in your code.
 
-We recommend using the ['Nose'](http://nose.readthedocs.org/) library for testing. The `nosetests` application traverses the directory tree in which it is issued, looking for files with the names that match the pattern `test_*.py` (typically, something like our `shablona/tests/test_shablona.py`). Within each of these files, it looks for functions with names that match the pattern `test_*`. Typically each function in the module would have a corresponding test (e.g. `test_transform_data`). This is sometimes called 'unit testing', becasue it independently tests each atomic unit in the software. Other tests might run a more elaborate sequence of functions ('end-to-end testing' if you run through the entire analysis), and check that particular values in the code evaluate to the same values over time. This is sometimes called 'regression testing'. We have one such test in `shablona/tests/test_shablona.py` called `test_params_regression`. Regressions in the code are often canaries in the coal mine, telling you that you need to examine changes in your software dependencies, the platform on which you are running your software, etc.
+We recommend using the ['Nose'](http://nose.readthedocs.org/) library for
+testing. The `nosetests` application traverses the directory tree in which it is
+issued, looking for files with the names that match the pattern `test_*.py`
+(typically, something like our `shablona/tests/test_shablona.py`). Within each
+of these files, it looks for functions with names that match the pattern
+`test_*`. Typically each function in the module would have a corresponding test
+(e.g. `test_transform_data`). This is sometimes called 'unit testing', becasue
+it independently tests each atomic unit in the software. Other tests might run a
+more elaborate sequence of functions ('end-to-end testing' if you run through
+the entire analysis), and check that particular values in the code evaluate to
+the same values over time. This is sometimes called 'regression testing'. We
+have one such test in `shablona/tests/test_shablona.py` called
+`test_params_regression`. Regressions in the code are often canaries in the coal
+mine, telling you that you need to examine changes in your software
+dependencies, the platform on which you are running your software, etc.
 
-Test functions should contain assertion statements that check certain relations in the code. Most typically, they will test for equality between an explicit calculation of some kind and a return of some function. For example, in the `test_cumgauss` function, we test that our implmentation of the cumulative Gaussian function evaluates at the mean minus 1 standard deviation to approximately (1-0.68)/2, which is the theoretical value this calculation should have. We recommend using functions from the `numpy.testing` module (which we import as `npt`) to assert certain relations on arrays and floating point numbers. This is because `npt` contains functions that are specialized for handling `numpy` arrays, and they allow to specify the tolerance of the comparison through the `decimal` key-word argument.
+Test functions should contain assertion statements that check certain relations
+in the code. Most typically, they will test for equality between an explicit
+calculation of some kind and a return of some function. For example, in the
+`test_cumgauss` function, we test that our implmentation of the cumulative
+Gaussian function evaluates at the mean minus 1 standard deviation to
+approximately (1-0.68)/2, which is the theoretical value this calculation should
+have. We recommend using functions from the `numpy.testing` module (which we
+import as `npt`) to assert certain relations on arrays and floating point
+numbers. This is because `npt` contains functions that are specialized for
+handling `numpy` arrays, and they allow to specify the tolerance of the
+comparison through the `decimal` key-word argument.
 
-To run the tests on the command line, change your present working directory to the top-level directory of the repository (e.g. `/Users/arokem/code/shablona`), and type:
+To run the tests on the command line, change your present working directory to
+the top-level directory of the repository (e.g. `/Users/arokem/code/shablona`),
+and type:
 
     nosetests
 
-This will exercise all of the tests in your code directory. If a test fails, you will see a message such as:
+This will exercise all of the tests in your code directory. If a test fails, you
+will see a message such as:
 
 	.F...
 	======================================================================
@@ -125,9 +167,18 @@ This will exercise all of the tests in your code directory. If a test fails, you
 	----------------------------------------------------------------------
 	Ran 5 tests in 0.395s
 
-This indicates to you that a test has failed. In this case, the calculationg is accurate up to 2 decimal places, but not beyond, so the `decimal` key-word argument needs to be adjusted (or the calculation needs to be made more accurate).
+This indicates to you that a test has failed. In this case, the calculationg is
+accurate up to 2 decimal places, but not beyond, so the `decimal` key-word
+argument needs to be adjusted (or the calculation needs to be made more
+accurate).
 
-As your code grows and becomes more complicated, you might develop new features that interact with your old features in all kinds of unexpected and surprising ways. As you develop new features of your code, keep running the tests, to make sure that you haven't broken the old features.  Keep writing new tests for your new code, and recording these tests in your testing scripts. That way, you can be confident that even as the software grows, it still keeps doing correctly at least the few things that are codified in the tests.
+As your code grows and becomes more complicated, you might develop new features
+that interact with your old features in all kinds of unexpected and surprising
+ways. As you develop new features of your code, keep running the tests, to make
+sure that you haven't broken the old features.  Keep writing new tests for your
+new code, and recording these tests in your testing scripts. That way, you can
+be confident that even as the software grows, it still keeps doing correctly at
+least the few things that are codified in the tests.
 
 
 ### Styling
@@ -239,6 +290,8 @@ every pull request for the software, and also when you break the test suite on
 the `master` branch. That way, you can be pretty sure that the `master` is
 working (or at least know when it isn't...).
 
+To also continuously test your code on a Windows system, you can also add a
+`.appveyor` file and activate your repository on [Appveyor](http://www.appveyor.com/).
 
 ### Distribution
 
