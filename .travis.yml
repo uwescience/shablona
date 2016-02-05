@@ -12,10 +12,6 @@ deploy:
     tags: true
     repo: uwescience/shablona
 
-cache:
-  directories:
-    - $HOME/miniconda
-
 python:
   - 2.7
   - 3.3
@@ -52,3 +48,7 @@ before_cache:
 # clean unused packages & installed files from conda cache
 - conda clean -tp
 - xargs rm <installed_files.txt
+
+cache:
+  directories:
+    - $HOME/miniconda
