@@ -1,6 +1,7 @@
-sudo: false
-
 language: python
+
+# sudo false implies containerized builds, so we can use cacheing
+sudo: false
 
 deploy:
   provider: pypi
