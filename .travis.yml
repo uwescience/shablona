@@ -46,7 +46,7 @@ after_success:
 
 before_cache:
 # clean unused packages & installed files from conda cache
-- conda clean -tp
+- conda clean --tarballs --packages --index-cache
 - xargs rm <installed_files.txt
 
 cache:
