@@ -307,7 +307,7 @@ account).
 
 The main venue for distribution of Python software is the [Python Package Index](https://pypi.python.org/), or PyPI, also lovingly known as "the cheese-shop".
 
-To distribute your software on PyPI, you will need to create a user account on PyPI. You can upload your software using `python setup.py upload`.
+To distribute your software on PyPI, you will need to create a user account on [PyPI](http://python-packaging-user-guide.readthedocs.org/en/latest/distributing/#register-your-project). It is recommended that you upload your software using [twine](http://python-packaging-user-guide.readthedocs.org/en/latest/distributing/#upload-your-distributions).
 
 Using Travis, you can automatically upload your software to PyPI, every time you push a tag of your software to github. The instructions on setting this up can be found [here](http://docs.travis-ci.com/user/deployment/pypi/). You will need to install the travis command-line interface
 
