@@ -159,6 +159,8 @@ Travis-CI is a system that can be used to automatically test every revision of y
 
 You will need a .travis.yml file in your repo. This file contains the configuration of your testing environment. This includes the different environments in which you will test the source code (for example, we test `shablona` against Python 2.7, Python 3.3 and Python 3.4). It includes steps that need to be taken before installation of the software. For example, installation of the software dependencies. For `shablona`, we use the [`Miniconda`](http://conda.pydata.org/miniconda.html) software distribution (not to be confused with [`Anaconda`](https://store.continuum.io/cshop/anaconda/), though they are similar and both produced by Continuum).
 
+For details on setting up Travis-CI with github, see Travis-CI's [getting started page](https://docs.travis-ci.com/user/getting-started/#To-get-started-with-Travis-CI%3A). To summarize:
+
 First, go to the Travis-CI [website](https://travis-ci.org/) and get a Travis user account, linked to your github user account.
 
 You will need to set up your github repo to talk to Travis (More explanation + pictures will come here).
