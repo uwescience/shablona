@@ -20,17 +20,7 @@ def abort(error):
     print('*WARNING* API documentation not generated: %s' % error)
     exit()
 
-
-if __name__ == '__main__':
-    package = sys.argv[1]
-    outdir = sys.argv[2]
-    try:
-        other_defines = sys.argv[3]
-    except IndexError:
-        other_defines = True
-    else:
-        other_defines = other_defines in ('True', 'true', '1')
-
+def writeapi(package, outdir, other_defines=True):
     # Check that the package is available. If not, the API documentation is not
     # (re)generated and existing API documentation sources will be used.
 
@@ -60,9 +50,21 @@ if __name__ == '__main__':
     docwriter = ApiDocWriter(package, rst_extension='.rst',
                              other_defines=other_defines)
                              
-    docwriter.package_skip_patterns += [r'\.shablona$',
+    docwriter.package_skip_patterns += [r'\.%s$' % package,
                                         r'.*test.*$',
                                         r'\.version.*$']
     docwriter.write_api_docs(outdir)
     docwriter.write_index(outdir, 'index', relative_to=outdir)
     print('%d files written' % len(docwriter.written_modules))
+
+if __name__ == '__main__':
+    package = sys.argv[1]
+    outdir = sys.argv[2]
+    try:
+        other_defines = sys.argv[3]
+    except IndexError:
+        other_defines = True
+    else:
+        other_defines = other_defines in ('True', 'true', '1')
+
+    writeapi(package, outdir, other_defines=other_defines)

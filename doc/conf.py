@@ -16,6 +16,18 @@
 import sys
 import os
 
+# autogenerate api documentation
+# (see https://github.com/rtfd/readthedocs.org/issues/1139)
+def generateapidoc(_):
+    cur_dir = os.path.abspath(os.path.dirname(__file__))
+    output_path = os.path.join(cur_dir, 'reference')
+    module = 'shablona'
+    sys.path.append(os.path.join(cur_dir, 'tools'))
+    import buildmodref
+    buildmodref.writeapi(module, output_path, True)
+def setup(app):
+    app.connect('builder-inited', generateapidoc)
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
