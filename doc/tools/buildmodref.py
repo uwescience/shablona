@@ -57,6 +57,7 @@ def writeapi(package, outdir, other_defines=True):
     docwriter.write_index(outdir, 'index', relative_to=outdir)
     print('%d files written' % len(docwriter.written_modules))
 
+
 if __name__ == '__main__':
     package = sys.argv[1]
     outdir = sys.argv[2]

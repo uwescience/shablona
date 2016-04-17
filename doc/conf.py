@@ -16,15 +16,17 @@
 import sys
 import os
 
+currentdir = os.path.abspath(os.path.dirname(__file__))
+sys.path.append(os.path.join(currentdir, 'tools'))
+import buildmodref
+
 # autogenerate api documentation
 # (see https://github.com/rtfd/readthedocs.org/issues/1139)
 def generateapidoc(_):
-    cur_dir = os.path.abspath(os.path.dirname(__file__))
-    output_path = os.path.join(cur_dir, 'reference')
+    output_path = os.path.join(currentdir, 'reference')
     module = 'shablona'
-    sys.path.append(os.path.join(cur_dir, 'tools'))
-    import buildmodref
     buildmodref.writeapi(module, output_path, True)
+
 def setup(app):
     app.connect('builder-inited', generateapidoc)
 
