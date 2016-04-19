@@ -19,28 +19,28 @@ share it with others, test it, document it, and track its evolution.
 
 The project has the following structure:
 
-	shablona -
-			  |- README.md
-			  |- shablona
-					|- __init__.py
-					|- shablona.py
-					|- data
-						|- ...
-					|- tests
-						|- ...
-			  |- doc
-					|- Makefile
-					|- conf.py
-					|- sphinxext
-						|- ...
-					|- _static
-						|- ...
-			  |- setup.py
-			  |- .travis.yml
-			  |- appveyor.yml
-			  |- LICENSE
-			  |- ipynb
-		  			|- ...
+    shablona/
+      |- README.md
+      |- shablona/
+         |- __init__.py
+         |- shablona.py
+         |- data/
+            |- ...
+         |- tests/
+            |- ...
+      |- doc/
+         |- Makefile
+         |- conf.py
+         |- sphinxext/
+            |- ...
+         |- _static/
+            |- ...
+      |- setup.py
+      |- .travis.yml
+      |- appveyor.yml
+      |- LICENSE
+      |- ipynb/
+         |- ...
 
 
 In the following sections we will examine these elements one by one. First,
@@ -91,8 +91,8 @@ analysis scripts, this provides a standard file-system location for
 the data at:
 
     import os.path as op
-	  import shablona as sb
-	  data_path = op.join(sb.__path__[0], 'data')
+    import shablona as sb
+    data_path = op.join(sb.__path__[0], 'data')
 
 
 ### Testing
@@ -397,7 +397,7 @@ computer under the name you will want your project to have:
 To point to your own repository on github you will have to issue
 something like the following:
 
-    git remote rm origin
+	git remote rm origin
 	git remote add origin https://github.com/arokem/smallish
 
 (replace `arokem` with your own Github user name).
