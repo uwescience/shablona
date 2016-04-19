@@ -6,7 +6,7 @@ from __future__ import print_function, division
 # stdlib imports
 import sys
 import re
-from os.path import join as pjoin
+import os.path
 
 # local imports
 from apigen import ApiDocWriter
@@ -38,7 +38,8 @@ def writeapi(package, outdir, other_defines=True):
 
     installed_version = V(module.__version__)
 
-    ver_file = pjoin('..', package, 'version.py')
+    currentdir = os.path.abspath(os.path.dirname(__file__))
+    ver_file = os.path.join(currentdir, '..', '..', package, 'version.py')
     with open(ver_file) as f:
         exec(f.read())
     source_version = __version__
