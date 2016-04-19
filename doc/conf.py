@@ -16,6 +16,16 @@
 import sys
 import os
 
+# General information about the project.
+project = 'shablona'
+copyright = '2015, Ariel Rokem'
+
+currentdir = os.path.abspath(os.path.dirname(__file__))
+ver_file = os.path.join(currentdir, '..', project, 'version.py')
+with open(ver_file) as f:
+    exec(f.read())
+source_version = __version__
+
 currentdir = os.path.abspath(os.path.dirname(__file__))
 sys.path.append(os.path.join(currentdir, 'tools'))
 import buildmodref
@@ -24,8 +34,7 @@ import buildmodref
 # (see https://github.com/rtfd/readthedocs.org/issues/1139)
 def generateapidoc(_):
     output_path = os.path.join(currentdir, 'reference')
-    module = 'shablona'
-    buildmodref.writeapi(module, output_path, True)
+    buildmodref.writeapi(project, output_path, source_version, True)
 
 def setup(app):
     app.connect('builder-inited', generateapidoc)
@@ -70,9 +79,6 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 
-# General information about the project.
-project = 'shablona'
-copyright = '2015, Ariel Rokem'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -288,4 +294,3 @@ texinfo_domain_indices = False
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'http://docs.python.org/': None}
-

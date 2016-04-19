@@ -20,7 +20,8 @@ def abort(error):
     print('*WARNING* API documentation not generated: %s' % error)
     exit()
 
-def writeapi(package, outdir, other_defines=True):
+
+def writeapi(package, outdir, source_version, other_defines=True):
     # Check that the package is available. If not, the API documentation is not
     # (re)generated and existing API documentation sources will be used.
 
@@ -37,20 +38,12 @@ def writeapi(package, outdir, other_defines=True):
     # for older or newer versions if such versions are installed on the system.
 
     installed_version = V(module.__version__)
-
-    currentdir = os.path.abspath(os.path.dirname(__file__))
-    ver_file = os.path.join(currentdir, '..', '..', package, 'version.py')
-    with open(ver_file) as f:
-        exec(f.read())
-    source_version = __version__
-    print('***', source_version)
-
     if source_version != installed_version:
         abort("Installed version does not match source version")
 
     docwriter = ApiDocWriter(package, rst_extension='.rst',
                              other_defines=other_defines)
-                             
+
     docwriter.package_skip_patterns += [r'\.%s$' % package,
                                         r'.*test.*$',
                                         r'\.version.*$']
