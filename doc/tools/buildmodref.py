@@ -6,7 +6,6 @@ from __future__ import print_function, division
 # stdlib imports
 import sys
 import re
-import os.path
 
 # local imports
 from apigen import ApiDocWriter
