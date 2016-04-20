@@ -6,7 +6,6 @@ from __future__ import print_function, division
 # stdlib imports
 import sys
 import re
-from os.path import join as pjoin
 
 # local imports
 from apigen import ApiDocWriter
@@ -21,16 +20,7 @@ def abort(error):
     exit()
 
 
-if __name__ == '__main__':
-    package = sys.argv[1]
-    outdir = sys.argv[2]
-    try:
-        other_defines = sys.argv[3]
-    except IndexError:
-        other_defines = True
-    else:
-        other_defines = other_defines in ('True', 'true', '1')
-
+def writeapi(package, outdir, source_version, other_defines=True):
     # Check that the package is available. If not, the API documentation is not
     # (re)generated and existing API documentation sources will be used.
 
@@ -47,22 +37,28 @@ if __name__ == '__main__':
     # for older or newer versions if such versions are installed on the system.
 
     installed_version = V(module.__version__)
-
-    ver_file = pjoin('..', package, 'version.py')
-    with open(ver_file) as f:
-        exec(f.read())
-    source_version = __version__
-    print('***', source_version)
-
     if source_version != installed_version:
         abort("Installed version does not match source version")
 
     docwriter = ApiDocWriter(package, rst_extension='.rst',
                              other_defines=other_defines)
-                             
-    docwriter.package_skip_patterns += [r'\.shablona$',
+
+    docwriter.package_skip_patterns += [r'\.%s$' % package,
                                         r'.*test.*$',
                                         r'\.version.*$']
     docwriter.write_api_docs(outdir)
     docwriter.write_index(outdir, 'index', relative_to=outdir)
     print('%d files written' % len(docwriter.written_modules))
+
+
+if __name__ == '__main__':
+    package = sys.argv[1]
+    outdir = sys.argv[2]
+    try:
+        other_defines = sys.argv[3]
+    except IndexError:
+        other_defines = True
+    else:
+        other_defines = other_defines in ('True', 'true', '1')
+
+    writeapi(package, outdir, other_defines=other_defines)
