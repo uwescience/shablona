@@ -24,6 +24,7 @@ The project has the following structure:
       |- shablona/
          |- __init__.py
          |- shablona.py
+         |- due.py
          |- data/
             |- ...
          |- tests/
@@ -366,6 +367,23 @@ with my software"
 For more details on what you need to think about when considering
 choosing a license, see this
 [article](http://www.astrobetter.com/blog/2014/03/10/the-whys-and-hows-of-licensing-scientific-code/)!
+
+### Getting cited
+
+When others use your code in their research, they should probably cite you. To
+make their life easier, we use [duecredit](duecredit.org). This is a software
+library that allows you to annotate your code with the correct way to cite it.
+To enable `duecredit`, we have added a file `due.py` into the main directory.
+This file does not need to change at all (though you might want to occasionally
+update it from duecredit itself. It's
+[here](https://github.com/duecredit/duecredit/blob/master/duecredit/stub.py),
+under the name `stub.py`).
+
+In addition, you will want to provide a digital object identifier (DOI) to the
+article you want people to cite.
+
+To get a DOI, use the instructions in [this page](https://guides.github.com/activities/citable-code/)
+
 
 ### Scripts
 
