@@ -79,9 +79,16 @@ following the [PEP8 code formatting standard](https://www.python.org/dev/peps/pe
 
 ### Project Data
 
-In this case, the project data is rather small, and recorded in csv files. Thus, it can be stored alongside the module code. Even if the data that you are analyzing is too large, and cannot be effectively tracked with github, you might still want to store some data for testing purposes.
+In this case, the project data is rather small, and recorded in csv
+files.  Thus, it can be stored alongside the module code.  Even if the
+data that you are analyzing is too large, and cannot be effectively
+tracked with github, you might still want to store some data for
+testing purposes.
 
-Either way, you can create a `shablona/data` folder in which you can organize the data. As you can see in the test scripts, and in the analysis scripts, this provides a standard file-system location for the data at:
+Either way, you can create a `shablona/data` folder in which you can
+organize the data. As you can see in the test scripts, and in the
+analysis scripts, this provides a standard file-system location for
+the data at:
 
     import os.path as op
 	  import shablona as sb
@@ -192,7 +199,8 @@ code-base.
 Some projects include `flake8` inside their automated tests, so that every pull
 request is examined for code cleanliness.
 
-In this project, we have run `flake8` most (but not all) files, on most (but not all) checks:
+In this project, we have run `flake8` most (but not all) files, on
+most (but not all) checks:
 
 ```
 flake8 --ignore N802,N806 `find . -name *.py | grep -v setup.py | grep -v /doc/`
@@ -237,7 +245,15 @@ pages that you can upload to a website to explain the software), you will type:
 
 This will generate a set of static webpages in the `doc/_build/html`, which you can then upload to a website of your choice.
 
-Alternatively, [readthedocs.org](https://readthedocs.org) (careful, *not* readthedocs.**com**) is a service that will run sphinx for you, and upload the documentation to their website. To use this service, you will need to register with RTD. After you have done that, you will need to "import your project" from your github account, through the RTD web interface. To make things run smoothly, you also will need to go to the "admin" panel of the project on RTD, and navigate into the "advanced settings" so that you can tell it that your Python configuration file is in `doc/conf.py`:
+Alternatively, [readthedocs.org](https://readthedocs.org) (careful,
+*not* readthedocs.**com**) is a service that will run sphinx for you,
+and upload the documentation to their website. To use this service,
+you will need to register with RTD. After you have done that, you will
+need to "import your project" from your github account, through the
+RTD web interface. To make things run smoothly, you also will need to
+go to the "admin" panel of the project on RTD, and navigate into the
+"advanced settings" so that you can tell it that your Python
+configuration file is in `doc/conf.py`:
 
 ![RTD conf](https://github.com/uwescience/shablona/blob/master/doc/_static/RTD-advanced-conf.png)
 
@@ -246,11 +262,23 @@ Alternatively, [readthedocs.org](https://readthedocs.org) (careful, *not* readth
 
 ### Installation
 
-For installation and distribution we will use the python standard library `distutils` module. This module uses a `setup.py` file to figure out how to install your software on a particular system. For a small project such as this one, managing installation of the software modules and the data is rather simple.
+For installation and distribution we will use the python standard
+library `distutils` module. This module uses a `setup.py` file to
+figure out how to install your software on a particular system. For a
+small project such as this one, managing installation of the software
+modules and the data is rather simple.
 
-A `shablona/version.py` contains all of the information needed for the installation and for setting up the [PyPI page](https://pypi.python.org/pypi/shablona) for the software. This also makes it possible to install your software with using `pip` and `easy_install`, which are package managers for Python software. The `setup.py` file reads this information from there and passes it to the `setup` function which takes care of the rest.
+A `shablona/version.py` contains all of the information needed for the
+installation and for setting up the [PyPI
+page](https://pypi.python.org/pypi/shablona) for the software. This
+also makes it possible to install your software with using `pip` and
+`easy_install`, which are package managers for Python software. The
+`setup.py` file reads this information from there and passes it to the
+`setup` function which takes care of the rest.
 
-Much more information on packaging Python software can be found in the [Hitchhiker's guide to packaging](https://the-hitchhikers-guide-to-packaging.readthedocs.org).
+Much more information on packaging Python software can be found in the
+[Hitchhiker's guide to
+packaging](https://the-hitchhikers-guide-to-packaging.readthedocs.org).
 
 
 ### Continuous integration
@@ -272,9 +300,13 @@ installation of the software dependencies. For `shablona`, we use the
 to be confused with [`Anaconda`](https://store.continuum.io/cshop/anaconda/),
 though they are similar and both produced by Continuum).
 
-For details on setting up Travis-CI with github, see Travis-CI's [getting started page](https://docs.travis-ci.com/user/getting-started/#To-get-started-with-Travis-CI%3A). To summarize:
+For details on setting up Travis-CI with github, see Travis-CI's
+[getting started
+page](https://docs.travis-ci.com/user/getting-started/#To-get-started-with-Travis-CI%3A). To
+summarize:
 
-First, go to the Travis-CI [website](https://travis-ci.org/) and get a Travis user account, linked to your github user account.
+First, go to the Travis-CI [website](https://travis-ci.org/) and get a
+Travis user account, linked to your github user account.
 
 You will need to set up your github repo to talk to Travis (More explanation +
 pictures will come here).
@@ -305,42 +337,73 @@ account).
 
 ### Distribution
 
-The main venue for distribution of Python software is the [Python Package Index](https://pypi.python.org/), or PyPI, also lovingly known as "the cheese-shop".
+The main venue for distribution of Python software is the [Python
+Package Index](https://pypi.python.org/), or PyPI, also lovingly known
+as "the cheese-shop".
 
-To distribute your software on PyPI, you will need to create a user account on PyPI. You can upload your software using `python setup.py upload`.
+To distribute your software on PyPI, you will need to create a user
+account on PyPI. You can upload your software using `python setup.py
+upload`.
 
-Using Travis, you can automatically upload your software to PyPI, every time you push a tag of your software to github. The instructions on setting this up can be found [here](http://docs.travis-ci.com/user/deployment/pypi/). You will need to install the travis command-line interface
+Using Travis, you can automatically upload your software to PyPI,
+every time you push a tag of your software to github. The instructions
+on setting this up can be found
+[here](http://docs.travis-ci.com/user/deployment/pypi/). You will need
+to install the travis command-line interface
 
 ### Licensing
 
-License your code! A repository like this without a license maintains copyright to the author, but does not provide others with any conditions under which they can use the software. In this case, we use the MIT license. You can read the conditions of the license in the `LICENSE` file. As you can see, this is not an Apple software license agreement (has anyone ever actually tried to read one of those?). It's actually all quite simple, and boils down to "You can do whatever you want with my software, but I take no responsibility for what you do with my software"
+License your code! A repository like this without a license maintains
+copyright to the author, but does not provide others with any
+conditions under which they can use the software. In this case, we use
+the MIT license. You can read the conditions of the license in the
+`LICENSE` file. As you can see, this is not an Apple software license
+agreement (has anyone ever actually tried to read one of those?). It's
+actually all quite simple, and boils down to "You can do whatever you
+want with my software, but I take no responsibility for what you do
+with my software"
 
-For more details on what you need to think about when considering choosing a license, see this [article](http://www.astrobetter.com/blog/2014/03/10/the-whys-and-hows-of-licensing-scientific-code/)!
+For more details on what you need to think about when considering
+choosing a license, see this
+[article](http://www.astrobetter.com/blog/2014/03/10/the-whys-and-hows-of-licensing-scientific-code/)!
 
 ### Scripts
 
-A scripts directory can be used as a place to experiment with your module code, and as a place to produce scripts that contain a narrative structure, demonstrating the use of the code, or producing scientific results from your code and your data and telling a story with these elements.
+A scripts directory can be used as a place to experiment with your
+module code, and as a place to produce scripts that contain a
+narrative structure, demonstrating the use of the code, or producing
+scientific results from your code and your data and telling a story
+with these elements.
 
-For example, this repository contains an [IPython notebook] that reads in some data, and creates a figure. Maybe this is *Figure 1* from some future article? You can see this notebook fully rendered [here](https://github.com/uwescience/shablona/blob/master/scripts/Figure1.ipynb).
+For example, this repository contains an [IPython notebook] that reads
+in some data, and creates a figure. Maybe this is *Figure 1* from some
+future article? You can see this notebook fully rendered
+[here](https://github.com/uwescience/shablona/blob/master/scripts/Figure1.ipynb).
 
 
 ### Using `shablona` as a template
 
-Let's assume that you want to create a small scientific Python project called `smallish`. Maybe you already have some code that you are interested in plugging into the module file, and some ideas about what the tests might look like.
+Let's assume that you want to create a small scientific Python project
+called `smallish`. Maybe you already have some code that you are
+interested in plugging into the module file, and some ideas about what
+the tests might look like.
 
-To use this repository as a template, start by cloning it to your own computer under the name you will want your project to have:
+To use this repository as a template, start by cloning it to your own
+computer under the name you will want your project to have:
 
 	git clone https://github.com/uwescience/shablona smallish
 	cd smallish
 
-To point to your own repository on github you will have to issue something like the following:
+To point to your own repository on github you will have to issue
+something like the following:
 
     git remote rm origin
 	git remote add origin https://github.com/arokem/smallish
 
 (replace `arokem` with your own Github user name).
 
-Next, you will want to move `shablona/shablona.py` to be called `smallish/smallish.py`
+Next, you will want to move `shablona/shablona.py` to be called
+`smallish/smallish.py`
 
 	git mv shablona smallish
 	git mv smallish/shablona.py smallish/smallish.py
