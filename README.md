@@ -20,25 +20,25 @@ share it with others, test it, document it, and track its evolution.
 The project has the following structure:
 
 	shablona -
-			  |- `README.md`
+			  |- README.md
 			  |- shablona
-					|- `__init__.py`
-					|- `shablona.py`
+					|- __init__.py
+					|- shablona.py
 					|- data
 						|- ...
 					|- tests
 						|- ...
 			  |- doc
-					|- `Makefile`
-					|- `conf.py`
+					|- Makefile
+					|- conf.py
 					|- sphinxext
 						|- ...
 					|- _static
 						|- ...
-			  |- `setup.py`
-			  |- `.travis.yml`
-			  |- `appveyor.yml`
-			  |- `LICENSE`
+			  |- setup.py
+			  |- .travis.yml
+			  |- appveyor.yml
+			  |- LICENSE
 			  |- ipynb
 		  			|- ...
 
