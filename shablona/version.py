@@ -70,7 +70,5 @@ MAJOR = _version_major
 MINOR = _version_minor
 MICRO = _version_micro
 VERSION = __version__
-PACKAGES = ['shablona',
-            'shablona.tests']
 PACKAGE_DATA = {'shablona': [pjoin('data', '*')]}
 REQUIRES = ["numpy"]
