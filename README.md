@@ -19,28 +19,29 @@ share it with others, test it, document it, and track its evolution.
 
 The project has the following structure:
 
-	shablona -
-			  |- README.md
-			  |- shablona
-					|- __init__.py
-					|- shablona.py
-					|- data
-						|- ...
-					|- tests
-						|- ...
-			  |- doc
-					|- Makefile
-					|- conf.py
-					|- sphinxext
-						|- ...
-					|- _static
-						|- ...
-			  |- setup.py
-			  |- .travis.yml
-			  |- appveyor.yml
-			  |- LICENSE
-			  |- ipynb
-		  			|- ...
+    shablona/
+      |- README.md
+      |- shablona/
+         |- __init__.py
+         |- shablona.py
+         |- due.py
+         |- data/
+            |- ...
+         |- tests/
+            |- ...
+      |- doc/
+         |- Makefile
+         |- conf.py
+         |- sphinxext/
+            |- ...
+         |- _static/
+            |- ...
+      |- setup.py
+      |- .travis.yml
+      |- appveyor.yml
+      |- LICENSE
+      |- ipynb/
+         |- ...
 
 
 In the following sections we will examine these elements one by one. First,
@@ -91,8 +92,8 @@ analysis scripts, this provides a standard file-system location for
 the data at:
 
     import os.path as op
-	  import shablona as sb
-	  data_path = op.join(sb.__path__[0], 'data')
+    import shablona as sb
+    data_path = op.join(sb.__path__[0], 'data')
 
 
 ### Testing
@@ -367,6 +368,23 @@ For more details on what you need to think about when considering
 choosing a license, see this
 [article](http://www.astrobetter.com/blog/2014/03/10/the-whys-and-hows-of-licensing-scientific-code/)!
 
+### Getting cited
+
+When others use your code in their research, they should probably cite you. To
+make their life easier, we use [duecredit](duecredit.org). This is a software
+library that allows you to annotate your code with the correct way to cite it.
+To enable `duecredit`, we have added a file `due.py` into the main directory.
+This file does not need to change at all (though you might want to occasionally
+update it from duecredit itself. It's
+[here](https://github.com/duecredit/duecredit/blob/master/duecredit/stub.py),
+under the name `stub.py`).
+
+In addition, you will want to provide a digital object identifier (DOI) to the
+article you want people to cite.
+
+To get a DOI, use the instructions in [this page](https://guides.github.com/activities/citable-code/)
+
+
 ### Scripts
 
 A scripts directory can be used as a place to experiment with your
@@ -397,7 +415,7 @@ computer under the name you will want your project to have:
 To point to your own repository on github you will have to issue
 something like the following:
 
-    git remote rm origin
+	git remote rm origin
 	git remote add origin https://github.com/arokem/smallish
 
 (replace `arokem` with your own Github user name).
