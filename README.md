@@ -119,13 +119,13 @@ provide a reader of the code with very rough specification, in the sense that it
 at least specifies certain input/output relationships that will certainly hold
 in your code.
 
-We recommend using the ['Nose'](http://nose.readthedocs.org/) library for
-testing. The `nosetests` application traverses the directory tree in which it is
+We recommend using the ['pytest'](http://pytest.org/latest/) library for
+testing. The `py.test` application traverses the directory tree in which it is
 issued, looking for files with the names that match the pattern `test_*.py`
 (typically, something like our `shablona/tests/test_shablona.py`). Within each
 of these files, it looks for functions with names that match the pattern
 `test_*`. Typically each function in the module would have a corresponding test
-(e.g. `test_transform_data`). This is sometimes called 'unit testing', becasue
+(e.g. `test_transform_data`). This is sometimes called 'unit testing', because
 it independently tests each atomic unit in the software. Other tests might run a
 more elaborate sequence of functions ('end-to-end testing' if you run through
 the entire analysis), and check that particular values in the code evaluate to
@@ -151,31 +151,40 @@ To run the tests on the command line, change your present working directory to
 the top-level directory of the repository (e.g. `/Users/arokem/code/shablona`),
 and type:
 
-    nosetests
+    py.test shablona
 
 This will exercise all of the tests in your code directory. If a test fails, you
 will see a message such as:
 
-	.F...
-	======================================================================
-	FAIL: shablona.tests.test_shablona.test_cum_gauss
-	----------------------------------------------------------------------
-	Traceback (most recent call last):
-	  File "/Users/arokem/anaconda/lib/python3.4/site-packages/nose/case.py", line 198, in runTest
-	    self.test(*self.arg)
-	  File "/Users/arokem/source/shablona/shablona/tests/test_shablona.py", line 49, in test_cum_gauss
-	    npt.assert_almost_equal(y[0], (1 - 0.68) / 2, decimal = 3)
-	  File "/Users/arokem/anaconda/lib/python3.4/site-packages/numpy/testing/utils.py", line 490, in assert_almost_equal
-	    raise AssertionError(_build_err_msg())
-	AssertionError:
-	Arrays are not almost equal to 3 decimals
-	 ACTUAL: 0.15865525393145707
-	 DESIRED: 0.15999999999999998
 
-	----------------------------------------------------------------------
-	Ran 5 tests in 0.395s
+  shablona/tests/test_shablona.py .F...
 
-This indicates to you that a test has failed. In this case, the calculationg is
+  =================================== FAILURES ===================================
+  ________________________________ test_cum_gauss ________________________________
+
+      def test_cum_gauss():
+          sigma = 1
+          mu = 0
+          x = np.linspace(-1, 1, 12)
+          y = sb.cumgauss(x, mu, sigma)
+          # A basic test that the input and output have the same shape:
+          npt.assert_equal(y.shape, x.shape)
+          # The function evaluated over items symmetrical about mu should be
+          # symmetrical relative to 0 and 1:
+          npt.assert_equal(y[0], 1 - y[-1])
+          # Approximately 68% of the Gaussian distribution is in mu +/- sigma, so
+          # the value of the cumulative Gaussian at mu - sigma should be
+          # approximately equal to (1 - 0.68/2). Note the low precision!
+  >       npt.assert_almost_equal(y[0], (1 - 0.68) / 2, decimal=3)
+  E       AssertionError:
+  E       Arrays are not almost equal to 3 decimals
+  E        ACTUAL: 0.15865525393145707
+  E        DESIRED: 0.15999999999999998
+
+  shablona/tests/test_shablona.py:49: AssertionError
+  ====================== 1 failed, 4 passed in 0.82 seconds ======================
+
+This indicates to you that a test has failed. In this case, the calculation is
 accurate up to 2 decimal places, but not beyond, so the `decimal` key-word
 argument needs to be adjusted (or the calculation needs to be made more
 accurate).
