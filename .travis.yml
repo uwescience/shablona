@@ -12,7 +12,7 @@ deploy:
 
 env:
   global:
-    - CONDA_DEPS="pip flake8 nose coverage numpy scipy matplotlib pandas" PIP_DEPS="coveralls"
+    - CONDA_DEPS="pip flake8 pytest coverage numpy scipy matplotlib pandas" PIP_DEPS="coveralls"
 
 matrix:
   include:
@@ -52,8 +52,11 @@ install:
 - python setup.py install --record installed_files.txt
 
 script:
-- nosetests -v --with-coverage --cover-package=shablona
 - flake8 --ignore N802,N806 `find . -name \*.py | grep -v setup.py | grep -v /doc/`
+
+- mkdir for_test
+- cd for_test
+- py.test --pyargs shablona --cov-report term-missing --cov=shablona
 
 after_success:
 - coveralls
