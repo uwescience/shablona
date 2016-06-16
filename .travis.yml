@@ -9,10 +9,9 @@ deploy:
     tags: true
     repo: uwescience/shablona
 
-
 env:
   global:
-    - CONDA_DEPS="pip flake8 pytest coverage numpy scipy matplotlib pandas" PIP_DEPS="coveralls"
+    - CONDA_DEPS="pip flake8 pytest numpy scipy matplotlib pandas" PIP_DEPS="coveralls pytest-cov"
 
 matrix:
   include:
