@@ -30,9 +30,11 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda info -a
-  - "conda create -q -n test-environment python=%PYTHON_VERSION% numpy scipy matplotlib nose coverage pandas"
+  - "conda create -q -n test-environment python=%PYTHON_VERSION% numpy scipy matplotlib pytest pytest-cov pandas"
   - activate test-environment
   - pip install coverage
 
 test_script:
-  - nosetests
+  - mkdir for_test
+  - cd for_test
+  - py.test --pyargs shablona --cov-report term-missing --cov=shablona
