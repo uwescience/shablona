@@ -33,6 +33,7 @@ install:
   - "conda create -q -n test-environment python=%PYTHON_VERSION% numpy scipy matplotlib pytest pytest-cov pandas"
   - activate test-environment
   - pip install coverage
+  - python setup.py install
 
 test_script:
   - mkdir for_test
