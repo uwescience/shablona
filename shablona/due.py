@@ -23,6 +23,7 @@ Origin:     Originally a part of the duecredit
 Copyright:  2015-2016  DueCredit developers
 License:    BSD-2
 """
+from __future__ import absolute_import, division, print_function
 
 __version__ = '0.0.5'
 
