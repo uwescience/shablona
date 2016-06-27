@@ -7,16 +7,6 @@ environment:
       PYTHON_ARCH: "32"
       MINICONDA: C:\Miniconda
 
-    - PYTHON: "C:\\Python33"
-      PYTHON_VERSION: "3.3.5"
-      PYTHON_ARCH: "32"
-      MINICONDA: C:\Miniconda3
-
-    - PYTHON: "C:\\Python34"
-      PYTHON_VERSION: "3.4.1"
-      PYTHON_ARCH: "32"
-      MINICONDA: C:\Miniconda3
-
     - PYTHON: "C:\\Python35"
       PYTHON_VERSION: "3.5.1"
       PYTHON_ARCH: "32"
@@ -30,9 +20,12 @@ install:
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
   - conda info -a
-  - "conda create -q -n test-environment python=%PYTHON_VERSION% numpy scipy matplotlib nose coverage pandas"
+  - "conda create -q -n test-environment python=%PYTHON_VERSION% numpy scipy matplotlib pytest pytest-cov pandas"
   - activate test-environment
   - pip install coverage
+  - python setup.py install
 
 test_script:
-  - nosetests
+  - mkdir for_test
+  - cd for_test
+  - py.test --pyargs shablona --cov-report term-missing --cov=shablona
