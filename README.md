@@ -50,7 +50,7 @@ let's consider the core of the project. This is the code inside of
 simple. It implements some simple curve-fitting to data from a psychophysical
 experiment. It's not too important to know what it does, but if you are really
 interested, you can read all about it
-[here](http//arokem.github.io/2014-08-12-learn-optimization.html).
+[here](http://arokem.github.io/2014-08-12-learn-optimization.html).
 
 ### Module code
 
