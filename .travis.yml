@@ -1,5 +1,5 @@
 sudo: false
-language: python
+
 deploy:
   provider: pypi
   user: arokem
@@ -8,23 +8,65 @@ deploy:
   on:
     tags: true
     repo: uwescience/shablona
+
 env:
-- CONDA="python=2.7"
-- CONDA="python=3.3"
-- CONDA="python=3.4"
+  global:
+    - CONDA_DEPS="pip flake8 pytest numpy scipy matplotlib pandas" PIP_DEPS="coveralls pytest-cov"
+
+matrix:
+  include:
+    - os: osx
+      env:
+         - PYTHON_VERSION=2.7
+         - MINICONDA_URL="https://repo.continuum.io/miniconda/Miniconda-latest-MacOSX-x86_64.sh"
+    - os: osx
+      env:
+         - PYTHON_VERSION=3.5
+         - MINICONDA_URL="https://repo.continuum.io/miniconda/Miniconda-latest-MacOSX-x86_64.sh"
+    - os: linux
+      env:
+         - PYTHON_VERSION=2.7
+         - MINICONDA_URL="https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh"
+    - os: linux
+      env:
+         - PYTHON_VERSION=3.5
+         - MINICONDA_URL="https://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh"
+
+
 before_install:
-- wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh;
-- bash miniconda.sh -b -p $HOME/miniconda
-- export PATH="$HOME/miniconda/bin:$PATH"
+- export MINICONDA=$HOME/miniconda
+- export PATH="$MINICONDA/bin:$PATH"
 - hash -r
+- echo $MINICONDA_URL
+- wget $MINICONDA_URL -O miniconda.sh;
+- bash miniconda.sh -b -f -p $MINICONDA;
 - conda config --set always_yes yes
 - conda update conda
 - conda info -a
-- conda install numpy scipy matplotlib nose coverage pandas
-- travis_retry pip install coveralls
+- conda config --add channels conda-forge
+- conda install python=$PYTHON_VERSION $CONDA_DEPS
+- travis_retry pip install $PIP_DEPS
+
 install:
-- python setup.py install
+- python setup.py install --record installed_files.txt
+
 script:
-- nosetests -v --with-coverage --cover-package=shablona
+- flake8 --ignore N802,N806 `find . -name \*.py | grep -v setup.py | grep -v /doc/`
+
+- mkdir for_test
+- cd for_test
+- py.test --pyargs shablona --cov-report term-missing --cov=shablona
+
 after_success:
 - coveralls
+
+before_cache:
+# clean unused packages & installed files from conda cache
+# this makes the cache rebuilt less frequently
+- conda clean --tarballs --packages --index-cache
+- rm -rf $HOME/miniconda/pkgs/cache
+- xargs rm <installed_files.txt
+
+cache:
+  directories:
+    - $HOME/miniconda
