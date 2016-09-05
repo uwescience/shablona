@@ -380,7 +380,7 @@ choosing a license, see this
 ### Getting cited
 
 When others use your code in their research, they should probably cite you. To
-make their life easier, we use [duecredit](duecredit.org). This is a software
+make their life easier, we use [duecredit](http://www.duecredit.org). This is a software
 library that allows you to annotate your code with the correct way to cite it.
 To enable `duecredit`, we have added a file `due.py` into the main directory.
 This file does not need to change at all (though you might want to occasionally
