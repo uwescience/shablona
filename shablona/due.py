@@ -50,6 +50,7 @@ def _donothing_func(*args, **kwargs):
     """Perform no good and no bad"""
     pass
 
+
 try:
     from duecredit import due, BibTeX, Doi, Url
     if 'due' in locals() and not hasattr(due, 'cite'):
