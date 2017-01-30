@@ -453,6 +453,10 @@ the following to see where all these files are:
 
 	git grep shablona
 
+You can replace `shablona` for `smallish` fastly with:
+
+	git grep -l 'shablona' | xargs sed -i 's/shablona/smallish/g'
+
 This very file (README.md) should be edited to reflect what your project is
 about.
 
