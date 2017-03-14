@@ -40,6 +40,7 @@ x = np.random.randn(N)
 def error_func(x, w):
     return x * w
 
+
 coefs = np.zeros([len(noise_levels), n_boots])
 for ii, n_level in enumerate(noise_levels):
     # Generate y for this noise level
