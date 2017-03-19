@@ -67,6 +67,6 @@ percentiles = np.percentile(coefs, [2.5, 97.5], axis=1).T
 fig, ax = plt.subplots()
 for n_level, i_coefs, percs in zip(noise_levels, coefs, percentiles):
     ax.scatter(np.repeat(n_level, len(i_coefs)), i_coefs)
-    ax.hlines(percs, n_level-.2, n_level+.2, lw=2, color='r', alpha=.6)
+    ax.hlines(percs, n_level - .2, n_level + .2, lw=2, color='r', alpha=.6)
 ax.set(xlabel='Noise level', ylabel='Boostrapped coefficients',
        title='Bootstrapped coefficients and 95% CI\nfor many noise levels')
