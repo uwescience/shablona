@@ -157,10 +157,10 @@ This will exercise all of the tests in your code directory. If a test fails, you
 will see a message such as:
 
 
-  shablona/tests/test_shablona.py .F...
+    shablona/tests/test_shablona.py .F...
 
-  =================================== FAILURES ===================================
-  ________________________________ test_cum_gauss ________________________________
+    =================================== FAILURES ===================================
+    ________________________________ test_cum_gauss ________________________________
 
       def test_cum_gauss():
           sigma = 1
