@@ -175,14 +175,14 @@ will see a message such as:
           # Approximately 68% of the Gaussian distribution is in mu +/- sigma, so
           # the value of the cumulative Gaussian at mu - sigma should be
           # approximately equal to (1 - 0.68/2). Note the low precision!
-  >       npt.assert_almost_equal(y[0], (1 - 0.68) / 2, decimal=3)
-  E       AssertionError:
-  E       Arrays are not almost equal to 3 decimals
-  E        ACTUAL: 0.15865525393145707
-  E        DESIRED: 0.15999999999999998
+    >       npt.assert_almost_equal(y[0], (1 - 0.68) / 2, decimal=3)
+    E       AssertionError:
+    E       Arrays are not almost equal to 3 decimals
+    E        ACTUAL: 0.15865525393145707
+    E        DESIRED: 0.15999999999999998
 
-  shablona/tests/test_shablona.py:49: AssertionError
-  ====================== 1 failed, 4 passed in 0.82 seconds ======================
+    shablona/tests/test_shablona.py:49: AssertionError
+    ====================== 1 failed, 4 passed in 0.82 seconds ======================
 
 This indicates to you that a test has failed. In this case, the calculation is
 accurate up to 2 decimal places, but not beyond, so the `decimal` key-word
