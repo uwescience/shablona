@@ -20,7 +20,7 @@ due.cite(Doi("10.1167/13.9.30"),
 def transform_data(data):
     """
     Function that takes experimental data and gives us the
-    dependent/independent variables for analysis
+    dependent/independent variables for analysis.
 
     Parameters
     ----------
@@ -105,7 +105,7 @@ def cumgauss(x, mu, sigma):
 
 def opt_err_func(params, x, y, func):
     """
-    Error function for fitting a function using non-linear optimization
+    Error function for fitting a function using non-linear optimization.
 
     Parameters
     ----------
@@ -131,9 +131,9 @@ def opt_err_func(params, x, y, func):
 
 
 class Model(object):
-    """ Class for fitting cumulative Gaussian functions to data"""
+    """Class for fitting cumulative Gaussian functions to data"""
     def __init__(self, func=cumgauss):
-        """ Initialize a model object
+        """ Initialize a model object.
 
         Parameters
         ----------
@@ -148,7 +148,7 @@ class Model(object):
 
     def fit(self, x, y, initial=[0.5, 1]):
         """
-        Fit a Model to data
+        Fit a Model to data.
 
         Parameters
         ----------
@@ -175,7 +175,7 @@ class Fit(object):
     """
     def __init__(self, model, params):
         """
-        Initialize a :class:`Fit` object
+        Initialize a :class:`Fit` object.
 
         Parameters
         ----------
