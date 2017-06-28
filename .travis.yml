@@ -1,3 +1,4 @@
+language: python
 sudo: false
 
 deploy:
@@ -11,27 +12,12 @@ deploy:
 
 env:
   global:
-    - CONDA_DEPS="pip flake8 pytest numpy scipy matplotlib pandas" PIP_DEPS="coveralls pytest-cov"
+    - CONDA_DEPS="pip flake8 pytest numpy scipy matplotlib pandas" PIP_DEPS="coveralls pytest-cov" MINICONDA_URL="https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh"
 
-matrix:
-  include:
-    - os: osx
-      env:
-         - PYTHON_VERSION=2.7
-         - MINICONDA_URL="https://repo.continuum.io/miniconda/Miniconda2-latest-MacOSX-x86_64.sh"
-    - os: osx
-      env:
-         - PYTHON_VERSION=3.5
-         - MINICONDA_URL="https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh"
-    - os: linux
-      env:
-         - PYTHON_VERSION=2.7
-         - MINICONDA_URL="https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh"
-    - os: linux
-      env:
-         - PYTHON_VERSION=3.5
-         - MINICONDA_URL="https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh"
-
+python:
+  - '2.7'
+  - '3.5'
+  - '3.6'
 
 before_install:
 - export MINICONDA=$HOME/miniconda
@@ -44,7 +30,7 @@ before_install:
 - conda update conda
 - conda info -a
 - conda config --add channels conda-forge
-- conda install python=$PYTHON_VERSION $CONDA_DEPS
+- conda install python=$TRAVIS_PYTHON_VERSION $CONDA_DEPS
 - travis_retry pip install $PIP_DEPS
 
 install:
