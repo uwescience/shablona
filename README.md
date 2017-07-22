@@ -8,8 +8,7 @@ will make it easier for others to use your code, and can make it easier for you
 to port your code into other projects and collaborate with other users of this
 eco-system.
 
-To use it as a template for your own project, you will need to clone this
-repository into your computer and follow the instructions at the [bottom of this page](#using-shablona-as-a-template).
+To use it as a template for your own project, you will need to follow the instructions at the [bottom of this page](#using-shablona-as-a-template).
 
 First, let me explain all the different moving parts that make up a small
 scientific python project, and all the elements which allow us to effectively
@@ -40,13 +39,14 @@ The project has the following structure:
       |- .travis.yml
       |- appveyor.yml
       |- LICENSE
+      |- Makefile
       |- ipynb/
          |- ...
 
 
 In the following sections we will examine these elements one by one. First,
 let's consider the core of the project. This is the code inside of
-`shablona/shablona.py`. This code provided in this file is intentionally rather
+`shablona/shablona.py`. The code provided in this file is intentionally rather
 simple. It implements some simple curve-fitting to data from a psychophysical
 experiment. It's not too important to know what it does, but if you are really
 interested, you can read all about it
@@ -64,11 +64,12 @@ everything in that file into the namespace of the project:
 
     from .shablona import *
 
-In the module code, we follow the convention that a function is defined in
-lines that precede the lines that use that function. This helps readability of
-the code, because you know that if you see some name, the definition of that
-name will appear earlier in the file, either as a function/variable definition,
-or as an import from some other module or package.
+In the module code, we follow the convention that all functions are either
+imported from other places, or are defined in lines that precede the lines that
+use that function. This helps readability of the code, because you know that if
+you see some name, the definition of that name will appear earlier in the file,
+either as a function/variable definition, or as an import from some other module
+or package.
 
 In the case of the shablona module, the main classes defined at the bottom of
 the file make use of some of the functions defined in preceding lines.
@@ -76,7 +77,12 @@ the file make use of some of the functions defined in preceding lines.
 Remember that code will be probably be read more times than it will be written.
 Make it easy to read (for others, but also for yourself when you come back to
 it), by following a consistent formatting style. We strongly recommend
-following the [PEP8 code formatting standard](https://www.python.org/dev/peps/pep-0008/).
+following the
+[PEP8 code formatting standard](https://www.python.org/dev/peps/pep-0008/), and
+we enforce this by running a code-linter called
+[`flake8`](http://flake8.pycqa.org/en/latest/), which automatically checks the
+code and reports any violations of the PEP8 standard (and checks for other
+  general code hygiene issues), see below.
 
 ### Project Data
 
@@ -197,6 +203,11 @@ new code, and recording these tests in your testing scripts. That way, you can
 be confident that even as the software grows, it still keeps doing correctly at
 least the few things that are codified in the tests.
 
+We have also provided a `Makefile` that allows you to run the tests with more
+verbose and informative output from the top-level directory, by issuing the
+following from the command line:
+
+    make test
 
 ### Styling
 
@@ -394,6 +405,8 @@ article you want people to cite.
 
 To get a DOI, use the instructions in [this page](https://guides.github.com/activities/citable-code/)
 
+Another way to get your software cited is by writing a paper. There are several
+[journals that publish papers about software](https://www.software.ac.uk/resources/guides/which-journals-should-i-publish-my-software).
 
 ### Scripts
 
@@ -416,22 +429,17 @@ called `smallish`. Maybe you already have some code that you are
 interested in plugging into the module file, and some ideas about what
 the tests might look like.
 
-To use this repository as a template, start by cloning it to your own
-computer under the name you will want your project to have:
+To use this repository as a template, you can use the Github import
+functionality. Go to [https://import.github.com](https://import.github.com).
+Under "old repository clone URL" enter: https://github.com/uwescience/shablona
 
-	git clone https://github.com/uwescience/shablona smallish
-	cd smallish
+Under "new repository details" enter in the name field the name of your
+project. For example, enter `smallish` here. After that, you can hit the "Begin
+Import" button.
 
-To point to your own repository on github you will have to issue
-something like the following:
-
-	git remote rm origin
-	git remote add origin https://github.com/arokem/smallish
-
-(replace `arokem` with your own Github user name).
-
-Next, you will want to move `shablona/shablona.py` to be called
-`smallish/smallish.py`
+You should then be able to clone the new repo into your machine. You will want
+to change the names of the files. For example, you will want to move
+`shablona/shablona.py` to be called `smallish/smallish.py`
 
 	git mv shablona smallish
 	git mv smallish/shablona.py smallish/smallish.py
@@ -453,7 +461,7 @@ the following to see where all these files are:
 
 	git grep shablona
 
-You can replace `shablona` for `smallish` fastly with:
+You can replace `shablona` for `smallish` quickly with:
 
 	git grep -l 'shablona' | xargs sed -i 's/shablona/smallish/g'
 
