@@ -13,7 +13,8 @@ deploy:
 env:
   global:
     - CONDA_DEPS="pip flake8 pytest numpy scipy matplotlib pandas" PIP_DEPS="coveralls pytest-cov" MINICONDA_URL="https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh"
-
+    # doctr docs key
+    - secure: "Aw5PJvPilp3bl0durEPFYgXk17fGyhonZfaqE4rBbfIraxld89Sze2jrG8dbCoicoEXIRjwyzYzzxcHkYhuZF76SgRZJOQ4vFRUfFpZpxPjOlLKqUd25fqJ0cQo8zHGVXdklEnebIuOTKypQPU4zdICBHWI/3hvNMYIlnIKUcGaoyma3YooGzigck4WHGWzwmguqOXpZoTAHYRjuIWSk5cj2T60vdE+i+Elui6nOtOl/YtysAB6LB69L4gsNMyo4BpuLwBK552+9dAHi0b3bgY7GD7BhEDHs/BSkgEOnj0+BqFmFqrSWv2SjrQYb/m1g8ZMu/a9ITTZ57h8889915ME94CI0/4buTvZGKClSluYdzS5rXCf8w/02uRTuItFWAKxSrVQPta86e3aWIJkPpsiVu2iMOb5U6VcifJUDyxDRdBGCHLG/XBeto2dpY7HESE1alGvlHRUV7a3l/0BzbIyjTngQ/sSwnSC6+ZROHGcecxCBZ6sDE2qfV68uIw59lPFej/0fCdWbpWaxPAGGb6t/c48DdUt9MpPeu7ILG5e6kA5xC8YAGC2LbqBPmgI2RlJEC39+VuavSl5/56hiWZNDCnuInidL9kQJs6hdO35qir5HlhAbXvHYIaOUGluSNiPYooEV5d/R90rYfzcGxGcFTu/Ri0++AQ73bqvJLI0="
 python:
   - '2.7'
   - '3.5'
@@ -42,6 +43,19 @@ script:
 - mkdir for_test
 - cd for_test
 - py.test --pyargs shablona --cov-report term-missing --cov=shablona
+- cd ..
 
 after_success:
 - coveralls
+# Generate the docs and deploy
+- |
+    if [[ $TRAVIS_PYTHON_VERSION == 3.6 ]]; then
+      pip install sphinx sphinx-gallery pillow
+      # Doctr for gh-pages;
+      set -e;
+      pip install doctr;
+      cd doc;
+      make html;
+      cd ..;
+      doctr deploy . --built-docs doc/_build/html --no-require-master;
+    fi
