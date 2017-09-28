@@ -8,7 +8,8 @@ will make it easier for others to use your code, and can make it easier for you
 to port your code into other projects and collaborate with other users of this
 eco-system.
 
-To use it as a template for your own project, you will need to follow the instructions at the [bottom of this page](#using-shablona-as-a-template).
+To use it as a template for your own project, you will need to follow the
+instructions at the [bottom of this page](#using-shablona-as-a-template).
 
 First, let me explain all the different moving parts that make up a small
 scientific python project, and all the elements which allow us to effectively
@@ -231,6 +232,10 @@ This means, check all .py files, but exclude setup.py and everything in
 directories named "doc". Do all checks except N802 and N806, which enforce
 lowercase-only names for variables and functions.
 
+The `Makefile` contains an instruction for running this command as well:
+
+    make flake8
+
 ### Documentation
 
 Documenting your software is a good idea. Not only as a way to communicate to
@@ -264,7 +269,8 @@ pages that you can upload to a website to explain the software), you will type:
 
 	make html
 
-This will generate a set of static webpages in the `doc/_build/html`, which you can then upload to a website of your choice.
+This will generate a set of static webpages in the `doc/_build/html`, which you
+can then upload to a website of your choice.
 
 Alternatively, [readthedocs.org](https://readthedocs.org) (careful,
 *not* readthedocs.**com**) is a service that will run sphinx for you,
