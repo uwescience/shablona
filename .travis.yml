@@ -12,33 +12,20 @@ deploy:
 
 env:
   global:
-    - CONDA_DEPS="pip flake8 pytest numpy scipy matplotlib pandas" PIP_DEPS="coveralls pytest-cov" MINICONDA_URL="https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+    - PIP_DEPS="pytest coveralls pytest-cov"
 
 python:
   - '2.7'
-  - '3.5'
   - '3.6'
 
-before_install:
-- export MINICONDA=$HOME/miniconda
-- export PATH="$MINICONDA/bin:$PATH"
-- hash -r
-- echo $MINICONDA_URL
-- wget $MINICONDA_URL -O miniconda.sh;
-- bash miniconda.sh -b -f -p $MINICONDA;
-- conda config --set always_yes yes
-- conda update conda
-- conda info -a
-- conda config --add channels conda-forge
-- conda install python=$TRAVIS_PYTHON_VERSION $CONDA_DEPS
-- travis_retry pip install $PIP_DEPS
 
 install:
-- python setup.py install --record installed_files.txt
+- travis_retry pip install $PIP_DEPS
+- travis_retry pip install -r requirements.txt
+- travis_retry pip install -e .
 
 script:
-- flake8 --ignore N802,N806 `find . -name \*.py | grep -v setup.py | grep -v /doc/`
-
+- flake8 --ignore N802,N806 `find . -name \*.py | grep -v setup.py | grep -v version.py | grep -v __init__.py | grep -v /doc/`
 - mkdir for_test
 - cd for_test
 - py.test --pyargs shablona --cov-report term-missing --cov=shablona
