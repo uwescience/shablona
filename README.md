@@ -38,6 +38,7 @@ The project has the following structure:
             |- ...
       |- setup.py
       |- .travis.yml
+      |- .mailmap
       |- appveyor.yml
       |- LICENSE
       |- Makefile
@@ -426,6 +427,21 @@ For example, this repository contains an [IPython notebook] that reads
 in some data, and creates a figure. Maybe this is *Figure 1* from some
 future article? You can see this notebook fully rendered
 [here](https://github.com/uwescience/shablona/blob/master/scripts/Figure1.ipynb).
+
+
+### Git Configuration
+
+Currently there are two files in the repository which help working
+with this repository, and which you could extend further:
+
+- `.gitignore` -- specifies intentionally untracked files (such as
+  compiled `*.pyc` files), which should not typically be committed to
+  git (see `man gitignore`)
+- `.mailmap` -- if any of the contributors used multiple names/email
+  addresses or his git commit identity is just an alias, you could
+  specify the ultimate name/email(s) for each contributor, so such
+  commands as `git shortlog -sn` could take them into account (see
+  `git shortlog --help`)
 
 
 ### Using `shablona` as a template
