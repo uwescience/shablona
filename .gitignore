@@ -1,4 +1,4 @@
-*.pyc
+*.py[co]
 *~
 *.DS_Store
 _build/
