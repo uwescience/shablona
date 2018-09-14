@@ -3,31 +3,8 @@ import numpy as np
 __all__ = ['midi_to_hz', 'hz_to_midi', 'hz_to_period']
 
 def midi_to_hz(notes):
-    """Get the frequency (Hz) of MIDI note(s)
-
-    Examples
-    --------
-    >>> midi_to_hz(36)
-    65.406
-
-    >>> midi_to_hz(np.arange(36, 48))
-    array([  65.406,   69.296,   73.416,   77.782,   82.407,
-             87.307,   92.499,   97.999,  103.826,  110.   ,
-            116.541,  123.471])
-
-    Parameters
-    ----------
-    notes       : int or np.ndarray [shape=(n,), dtype=int]
-        midi number(s) of the note(s)
-
-    Returns
-    -------
-    frequency   : number or np.ndarray [shape=(n,), dtype=float]
-        frequency (frequencies) of `notes` in Hz
-
-    See Also
-    --------
-    hz_to_midi
+    """
+    Hello Part 6!  You should add documentation to this function.
     """
 
     return 440.0 * (2.0 ** ((np.asanyarray(notes) - 69.0)/12.0))
@@ -58,12 +35,14 @@ def hz_to_midi(frequencies):
     midi_to_hz
     hz_to_period
     """
-    less_than_zero = (np.asanyarray(frequencies) <= 0).any()
 
-    if less_than_zero:
-        raise RuntimeError('Cannot convert a frequency of zero or less to a period.')
+    # Oh hey, it's Part 5!  You could uncomment this implementation, maybe, and then the tests will pass!
+    # less_than_zero = (np.asanyarray(frequencies) <= 0).any()
 
-    return 12 * (np.log2(np.asanyarray(frequencies)) - np.log2(440.0)) + 69
+    # if less_than_zero:
+    #     raise RuntimeError('Cannot convert a frequency of zero or less to a period.')
+
+    # return 12 * (np.log2(np.asanyarray(frequencies)) - np.log2(440.0)) + 69
 
 
 def hz_to_period(frequencies):
