@@ -1,211 +1,99 @@
-from __future__ import absolute_import, division, print_function
 import numpy as np
-import pandas as pd
-import scipy.optimize as opt
-from scipy.special import erf
-from .due import due, Doi
 
-__all__ = ["Model", "Fit", "opt_err_func", "transform_data", "cumgauss"]
+__all__ = ['midi_to_hz', 'hz_to_midi', 'hz_to_period']
 
+def midi_to_hz(notes):
+    """Get the frequency (Hz) of MIDI note(s)
 
-# Use duecredit (duecredit.org) to provide a citation to relevant work to
-# be cited. This does nothing, unless the user has duecredit installed,
-# And calls this with duecredit (as in `python -m duecredit script.py`):
-due.cite(Doi("10.1167/13.9.30"),
-         description="Template project for small scientific Python projects",
-         tags=["reference-implementation"],
-         path='shablona')
+    Examples
+    --------
+    >>> midi_to_hz(36)
+    65.406
 
-
-def transform_data(data):
-    """
-    Function that takes experimental data and gives us the
-    dependent/independent variables for analysis.
+    >>> midi_to_hz(np.arange(36, 48))
+    array([  65.406,   69.296,   73.416,   77.782,   82.407,
+             87.307,   92.499,   97.999,  103.826,  110.   ,
+            116.541,  123.471])
 
     Parameters
     ----------
-    data : Pandas DataFrame or string.
-        If this is a DataFrame, it should have the columns `contrast1` and
-        `answer` from which the dependent and independent variables will be
-        extracted. If this is a string, it should be the full path to a csv
-        file that contains data that can be read into a DataFrame with this
-        specification.
+    notes       : int or np.ndarray [shape=(n,), dtype=int]
+        midi number(s) of the note(s)
 
     Returns
     -------
-    x : array
-        The unique contrast differences.
-    y : array
-        The proportion of '2' answers in each contrast difference
-    n : array
-        The number of trials in each x,y condition
+    frequency   : number or np.ndarray [shape=(n,), dtype=float]
+        frequency (frequencies) of `notes` in Hz
+
+    See Also
+    --------
+    hz_to_midi
     """
-    if isinstance(data, str):
-        data = pd.read_csv(data)
 
-    contrast1 = data['contrast1']
-    answers = data['answer']
-
-    x = np.unique(contrast1)
-    y = []
-    n = []
-
-    for c in x:
-        idx = np.where(contrast1 == c)
-        n.append(float(len(idx[0])))
-        answer1 = len(np.where(answers[idx[0]] == 1)[0])
-        y.append(answer1 / n[-1])
-    return x, y, n
+    return 440.0 * (2.0 ** ((np.asanyarray(notes) - 69.0)/12.0))
 
 
-def cumgauss(x, mu, sigma):
-    """
-    The cumulative Gaussian at x, for the distribution with mean mu and
-    standard deviation sigma.
+def hz_to_midi(frequencies):
+    """Get MIDI note number(s) for given frequencies
+
+    Examples
+    --------
+    >>> hz_to_midi(60)
+    34.506
+    >>> hz_to_midi([110, 220, 440])
+    array([ 45.,  57.,  69.])
 
     Parameters
     ----------
-    x : float or array
-       The values of x over which to evaluate the cumulative Gaussian function
-
-    mu : float
-       The mean parameter. Determines the x value at which the y value is 0.5
-
-    sigma : float
-       The variance parameter. Determines the slope of the curve at the point
-       of Deflection
+    frequencies   : float or np.ndarray [shape=(n,), dtype=float]
+        frequencies to convert
 
     Returns
     -------
+    note_nums     : number or np.ndarray [shape=(n,), dtype=float]
+        MIDI notes to `frequencies`
 
-    g : float or array
-        The cumulative gaussian with mean $\\mu$ and variance $\\sigma$
-        evaluated at all points in `x`.
-
-    Notes
-    -----
-    Based on:
-    http://en.wikipedia.org/wiki/Normal_distribution#Cumulative_distribution_function
-
-    The cumulative Gaussian function is defined as:
-
-    .. math::
-
-        \\Phi(x) = \\frac{1}{2} [1 + erf(\\frac{x}{\\sqrt{2}})]
-
-    Where, $erf$, the error function is defined as:
-
-    .. math::
-
-        erf(x) = \\frac{1}{\\sqrt{\\pi}} \int_{-x}^{x} e^{t^2} dt
-
+    See Also
+    --------
+    midi_to_hz
+    hz_to_period
     """
-    return 0.5 * (1 + erf((x - mu) / (np.sqrt(2) * sigma)))
+    less_than_zero = (np.asanyarray(frequencies) <= 0).any()
+
+    if less_than_zero:
+        raise RuntimeError('Cannot convert a frequency of zero or less to a period.')
+
+    return 12 * (np.log2(np.asanyarray(frequencies)) - np.log2(440.0)) + 69
 
 
-def opt_err_func(params, x, y, func):
-    """
-    Error function for fitting a function using non-linear optimization.
+def hz_to_period(frequencies):
+    """Get the period of a frequency (Hz) in seconds.
+
+    Examples
+    --------
+    >>> hz_to_period(100)
+    0.01
+
+    >>> hz_to_period([110, 220, 440])
+    array([0.00909091, 0.00454545, 0.0030303 ])
 
     Parameters
     ----------
-    params : tuple
-        A tuple with the parameters of `func` according to their order of
-        input
-
-    x : float array
-        An independent variable.
-
-    y : float array
-        The dependent variable.
-
-    func : function
-        A function with inputs: `(x, *params)`
+    frequencies   : float or np.ndarray [shape=(n,), dtype=float]
+        frequencies to convert
 
     Returns
     -------
-    float array
-        The marginals of the fit to x/y given the params
+    period   : number or np.ndarray [shape=(n,), dtype=float]
+        period (periods) of `frequencies` in seconds.
+
+    See Also
+    --------
+    hz_to_midi
     """
-    return y - func(x, *params)
+    less_than_zero = (np.asanyarray(frequencies) <= 0).any()
 
+    if less_than_zero:
+        raise RuntimeError('Cannot convert a frequency of zero or less to a period.')
 
-class Model(object):
-    """Class for fitting cumulative Gaussian functions to data"""
-    def __init__(self, func=cumgauss):
-        """ Initialize a model object.
-
-        Parameters
-        ----------
-        data : Pandas DataFrame
-            Data from a subjective contrast judgement experiment
-
-        func : callable, optional
-            A function that relates x and y through a set of parameters.
-            Default: :func:`cumgauss`
-        """
-        self.func = func
-
-    def fit(self, x, y, initial=[0.5, 1]):
-        """
-        Fit a Model to data.
-
-        Parameters
-        ----------
-        x : float or array
-           The independent variable: contrast values presented in the
-           experiment
-        y : float or array
-           The dependent variable
-
-        Returns
-        -------
-        fit : :class:`Fit` instance
-            A :class:`Fit` object that contains the parameters of the model.
-
-        """
-        params, _ = opt.leastsq(opt_err_func, initial,
-                                args=(x, y, self.func))
-        return Fit(self, params)
-
-
-class Fit(object):
-    """
-    Class for representing a fit of a model to data
-    """
-    def __init__(self, model, params):
-        """
-        Initialize a :class:`Fit` object.
-
-        Parameters
-        ----------
-        model : a :class:`Model` instance
-            An object representing the model used
-
-        params : array or list
-            The parameters of the model evaluated for the data
-
-        """
-        self.model = model
-        self.params = params
-
-    def predict(self, x):
-        """
-        Predict values of the dependent variable based on values of the
-        indpendent variable.
-
-        Parameters
-        ----------
-        x : float or array
-            Values of the independent variable. Can be values presented in
-            the experiment. For out-of-sample prediction (e.g. in
-            cross-validation), these can be values
-            that were not presented in the experiment.
-
-        Returns
-        -------
-        y : float or array
-            Predicted values of the dependent variable, corresponding to
-            values of the independent variable.
-        """
-        return self.model.func(x, *self.params)
+    return 1 / np.asanyarray(frequencies)
