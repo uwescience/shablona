@@ -5,7 +5,7 @@ API
 Classes
 -------
 
-.. currentmodule:: shablona
+.. currentmodule:: toymir
 
 .. autosummary::
    :template: class.rst
