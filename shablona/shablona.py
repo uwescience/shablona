@@ -73,6 +73,6 @@ def hz_to_period(frequencies):
     less_than_zero = (np.asanyarray(frequencies) <= 0).any()
 
     if less_than_zero:
-        raise RuntimeError('Cannot convert a frequency of zero or less to a period.')
+        raise ValueError('Cannot convert a frequency of zero or less to a period.')
 
     return 1 / np.asanyarray(frequencies)
