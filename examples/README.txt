@@ -1,5 +1,5 @@
-Shablona Gallery
-================
+Gallery
+=======
 
 This is the main gallery page for sphinx-gallery. It contains preview
 images of the scripts contained in all of the sub-folders of this folder.

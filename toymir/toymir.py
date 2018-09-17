@@ -2,11 +2,12 @@ import numpy as np
 
 __all__ = ['midi_to_hz', 'hz_to_midi', 'hz_to_period']
 
+
 def midi_to_hz(notes):
     """Hello Part 6!  You should add documentation to this function.
     """
 
-    return 440.0 * (2.0 ** ((np.asanyarray(notes) - 69.0)/12.0))
+    return 440.0 * (2.0 ** ((np.asanyarray(notes) - 69.0) / 12.0))
 
 
 def hz_to_midi(frequencies):
@@ -35,7 +36,9 @@ def hz_to_midi(frequencies):
     hz_to_period
     """
 
-    # Oh hey, it's Part 5!  You could uncomment this implementation, and then the tests will pass!
+    # Oh hey, it's Part 5!  You could uncomment this implementation,
+    # and then the tests will pass!
+
     # less_than_zero = (np.asanyarray(frequencies) <= 0).any()
 
     # if less_than_zero:

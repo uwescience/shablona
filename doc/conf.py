@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# shablona documentation build configuration file, created by
+# toymir documentation build configuration file, created by
 # sphinx-quickstart on Tue Apr 14 10:29:06 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -17,8 +17,8 @@ import sys
 import os
 
 # General information about the project.
-project = 'shablona'
-copyright = '2015, Ariel Rokem'
+project = 'toymir'
+copyright = '2015, Ariel Rokem, 2018, Thor Kell and Brian McFee'
 
 currentdir = os.path.abspath(os.path.dirname(__file__))
 ver_file = os.path.join(currentdir, '..', project, 'version.py')
@@ -76,7 +76,7 @@ sphinx_gallery_conf = {
     # path where to save gallery generated examples
     'gallery_dirs': 'auto_examples',
     # To auto-generate example sections in the API
-    'doc_module': ('shablona',),
+    'doc_module': ('toymir',),
     # Auto-generated mini-galleries go here
     'backreferences_dir': 'gen_api'
 }
@@ -156,7 +156,7 @@ html_theme = 'alabaster'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = '_static/logo.png'
+#html_logo = '_static/logo.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -216,7 +216,7 @@ html_domain_indices = False
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'shablonadoc'
+htmlhelp_basename = 'toymirdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -236,7 +236,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'shablona.tex', 'shablona Documentation',
+  ('index', 'toymir.tex', 'toymir Documentation',
    'Ariel Rokem', 'manual'),
 ]
 
@@ -266,7 +266,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'shablona', 'shablona Documentation',
+    ('index', 'toymir', 'toymir Documentation',
      ['Ariel Rokem'], 1)
 ]
 
@@ -280,8 +280,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'shablona', 'shablona Documentation',
-   'Ariel Rokem', 'shablona', 'One line description of project.',
+  ('index', 'toymir', 'toymir Documentation',
+   'Ariel Rokem', 'toymir', 'One line description of project.',
    'Miscellaneous'),
 ]
 
