@@ -15,6 +15,8 @@
 
 import sys
 import os
+from unittest.mock import MagicMock
+
 
 # General information about the project.
 project = 'toymir'
@@ -286,3 +288,18 @@ texinfo_domain_indices = False
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'http://docs.python.org/': None}
+
+
+
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+        return Mock()
+
+
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if on_rtd:
+    html_theme = 'default'
+    MOCK_MODULES = ['argparse', 'numpy', 'scipy', 'freetype', 'matplotlib']
+    sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+
