@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo "Checking git and conda"
 git --version
 conda --version
