@@ -11,7 +11,6 @@ sphinx-gallery, which allows you to generate narrative-style
 documents from python files.
 """
 
-import os.path as op
 import numpy as np
 import matplotlib.pyplot as plt
 import toymir
