@@ -6,4 +6,4 @@ API
 Functions
 ---------
 
-.. automodule:: toymir.toymir
+.. automodule:: toymir.freq
