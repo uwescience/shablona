@@ -290,7 +290,6 @@ texinfo_domain_indices = False
 intersphinx_mapping = {'http://docs.python.org/': None}
 
 
-
 class Mock(MagicMock):
     @classmethod
     def __getattr__(cls, name):
@@ -299,7 +298,5 @@ class Mock(MagicMock):
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 if on_rtd:
-    html_theme = 'default'
-    MOCK_MODULES = ['argparse', 'numpy', 'scipy', 'freetype', 'matplotlib']
+    MOCK_MODULES = ['numpy']
     sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
-
