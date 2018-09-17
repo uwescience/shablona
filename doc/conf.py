@@ -54,8 +54,7 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.mathjax',
               'math_dollar',  # has to go before numpydoc
               'numpydoc',
-              'github',
-              'sphinx_gallery.gen_gallery']
+              'github']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -68,18 +67,6 @@ source_suffix = '.rst'
 
 # The master toctree document.
 master_doc = 'index'
-
-# --- Sphinx Gallery ---
-sphinx_gallery_conf = {
-    # path to your examples scripts
-    'examples_dirs': '../examples',
-    # path where to save gallery generated examples
-    'gallery_dirs': 'auto_examples',
-    # To auto-generate example sections in the API
-    'doc_module': ('toymir',),
-    # Auto-generated mini-galleries go here
-    'backreferences_dir': 'gen_api'
-}
 
 # Automatically generate stub pages for API
 autosummary_generate = True
