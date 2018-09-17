@@ -1,7 +1,5 @@
 import numpy as np
 
-__all__ = ['midi_to_hz', 'hz_to_midi', 'hz_to_period']
-
 
 def midi_to_hz(notes):
     """Hello Part 6!  You should add documentation to this function.

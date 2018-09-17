@@ -19,4 +19,3 @@ Contents:
 
    theory
    api
-   auto_examples/index
