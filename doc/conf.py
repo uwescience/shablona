@@ -226,7 +226,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('index', 'toymir.tex', 'toymir Documentation',
-   'Ariel Rokem', 'manual'),
+   'Brian McFee and Thor Kell', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
