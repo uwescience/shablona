@@ -1,21 +1,12 @@
 language: python
 sudo: false
 
-deploy:
-  provider: pypi
-  user: arokem
-  password:
-    secure: U8Bfe8mXUSp5HYzGsyJfLuVzu+uEt6hid6AQb+HafJMHhhmoiX4cL8IH1xYaT/ZDXR02IO5bpQpjLLvKizDCXrfEgM/YTWhi1lldVh8O6cdP0gBeNfYNQz0qmbWhJFGzN+ad4VXBXrCVIPtF88mmowzRr6P0vLHW8GudSPInJKl6ofUwJDkOOFL6tqAiSLTIlwQQtvKTMqxCAQ3U+kliznpbbjFJSCjf29IQ/tUqzflbKmVdpr5nXCwVONNnydnY8fFK9Vrhl2UchFKjE5KbfoYxFs9udhlgxZMoKSDmTcvhhjwZ7HN8WPABxvY+IvrDi+CUjFDKBKZhSan0fQBfc8aMN0YVE2/TtEJXwsA9g4c3/BkcoF532mc7e2dzExQwOh/xS/iLPhn0qtf+VQn7po7iXwSMbpPIqEOYbgpaWXzgo0Pf5O5Q0pKzuXpcN4femZ1hEtTZ9f13LHuyjLPN9GAZjQmdUGbIkPFY/bbu6ssbkcgKZTABODln68LOnLDQGqpog5bYQ9Myr5mLhF3duLjnoZIcuReyQ7Ed8Z7bcNeiu7t4PAWbgm2DJ3VrUkzq24iUvGedwh3Eqr4eQnedrk2Bn3+rqVv00FjX9elmR7S3TJ4l4jPkfg8R48tDan6wGqhu3s2S97MSmgi+/gWDAEpTBHaHc5DuZ4TcJXTb3To=
-  on:
-    tags: true
-    repo: uwescience/shablona
-
 env:
   global:
     - PIP_DEPS="pytest coveralls pytest-cov flake8"
 
 python:
-  - '2.7'
+  - '3.5'
   - '3.6'
 
 
@@ -25,10 +16,12 @@ install:
 - travis_retry pip install -e .
 
 script:
-- flake8 --ignore N802,N806 `find . -name \*.py | grep -v setup.py | grep -v version.py | grep -v __init__.py | grep -v /doc/`
-- mkdir for_test
-- cd for_test
-- py.test --pyargs shablona --cov-report term-missing --cov=shablona
+# - flake8 --ignore N802,N806,E501 `find . -name \*.py | grep -v setup.py | grep -v version.py | grep -v __init__.py | grep -v /doc/`
+# - pytest --pyargs toymir --cov-report term-missing --cov=toymir
+  - pytest
 
-after_success:
-- coveralls
+# Hey, this block (and the above arguments to pytest )
+# are important if you care about test coverage.
+# That's outside the scope of this tutorial though!
+# after_success:
+# - coveralls

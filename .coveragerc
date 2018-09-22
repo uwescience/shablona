@@ -1,7 +1,7 @@
 [run]
 branch = True
-source = shablona/*
-include = shablona/*
+source = toymir/*
+include = toymir/*
 omit = */setup.py
 [report]
-include = shablona/*
+include = toymir/*

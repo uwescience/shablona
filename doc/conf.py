@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# shablona documentation build configuration file, created by
+# toymir documentation build configuration file, created by
 # sphinx-quickstart on Tue Apr 14 10:29:06 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -15,10 +15,12 @@
 
 import sys
 import os
+from unittest.mock import MagicMock
+
 
 # General information about the project.
-project = 'shablona'
-copyright = '2015, Ariel Rokem'
+project = 'toymir'
+copyright = '2015, Ariel Rokem, 2018, Thor Kell and Brian McFee'
 
 currentdir = os.path.abspath(os.path.dirname(__file__))
 ver_file = os.path.join(currentdir, '..', project, 'version.py')
@@ -54,8 +56,7 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.mathjax',
               'math_dollar',  # has to go before numpydoc
               'numpydoc',
-              'github',
-              'sphinx_gallery.gen_gallery']
+              'github']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -68,18 +69,6 @@ source_suffix = '.rst'
 
 # The master toctree document.
 master_doc = 'index'
-
-# --- Sphinx Gallery ---
-sphinx_gallery_conf = {
-    # path to your examples scripts
-    'examples_dirs': '../examples',
-    # path where to save gallery generated examples
-    'gallery_dirs': 'auto_examples',
-    # To auto-generate example sections in the API
-    'doc_module': ('shablona',),
-    # Auto-generated mini-galleries go here
-    'backreferences_dir': 'gen_api'
-}
 
 # Automatically generate stub pages for API
 autosummary_generate = True
@@ -156,7 +145,7 @@ html_theme = 'alabaster'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = '_static/logo.png'
+#html_logo = '_static/logo.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -216,7 +205,7 @@ html_domain_indices = False
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'shablonadoc'
+htmlhelp_basename = 'toymirdoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -236,8 +225,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'shablona.tex', 'shablona Documentation',
-   'Ariel Rokem', 'manual'),
+  ('index', 'toymir.tex', 'toymir Documentation',
+   'Brian McFee and Thor Kell', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -266,7 +255,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'shablona', 'shablona Documentation',
+    ('index', 'toymir', 'toymir Documentation',
      ['Ariel Rokem'], 1)
 ]
 
@@ -280,8 +269,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'shablona', 'shablona Documentation',
-   'Ariel Rokem', 'shablona', 'One line description of project.',
+  ('index', 'toymir', 'toymir Documentation',
+   'Ariel Rokem', 'toymir', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -299,3 +288,15 @@ texinfo_domain_indices = False
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'http://docs.python.org/': None}
+
+
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+        return MagicMock()
+
+
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if on_rtd:
+    MOCK_MODULES = ['numpy']
+    sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)

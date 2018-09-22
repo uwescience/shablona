@@ -4,3 +4,4 @@
 _build/
 auto_examples/
 gen_api/
+.pytest_cache
