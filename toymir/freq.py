@@ -40,7 +40,7 @@ def hz_to_midi(frequencies):
     # less_than_zero = (np.asanyarray(frequencies) <= 0).any()
 
     # if less_than_zero:
-    #     raise RuntimeError('Cannot convert a frequency of zero or less to a period.')
+    #     raise ValueError('Cannot convert a frequency of zero or less to a period.')
 
     # return 12 * (np.log2(np.asanyarray(frequencies)) - np.log2(440.0)) + 69
 
