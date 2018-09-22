@@ -16,10 +16,12 @@ install:
 - travis_retry pip install -e .
 
 script:
-- flake8 --ignore N802,N806,E501 `find . -name \*.py | grep -v setup.py | grep -v version.py | grep -v __init__.py | grep -v /doc/`
-- mkdir for_test
-- cd for_test
-- py.test --pyargs toymir --cov-report term-missing --cov=toymir
+# - flake8 --ignore N802,N806,E501 `find . -name \*.py | grep -v setup.py | grep -v version.py | grep -v __init__.py | grep -v /doc/`
+# - pytest --pyargs toymir --cov-report term-missing --cov=toymir
+  - pytest
 
-after_success:
-- coveralls
+# Hey, this block (and the above arguments to pytest )
+# are important if you care about test coverage.
+# That's outside the scope of this tutorial though!
+# after_success:
+# - coveralls
