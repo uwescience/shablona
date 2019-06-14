@@ -97,8 +97,7 @@ def cumgauss(x, mu, sigma):
 
     .. math::
 
-        erf(x) = \\frac{1}{\\sqrt{\\pi}} \int_{-x}^{x} e^{t^2} dt
-
+        erf(x) = \\frac{1}{\\sqrt{\\pi}} \\int_{-x}^{x} e^{t^2} dt
     """
     return 0.5 * (1 + erf((x - mu) / (np.sqrt(2) * sigma)))
 
