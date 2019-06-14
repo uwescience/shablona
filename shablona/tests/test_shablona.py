@@ -16,7 +16,6 @@ def test_transform_data():
     """
     # We start with actual data. We test here just that reading the data in
     # different ways ultimately generates the same arrays.
-    from matplotlib import mlab
     ortho = pd.read_csv(op.join(data_path, 'ortho.csv'))
     x1, y1, n1 = sb.transform_data(ortho)
     x2, y2, n2 = sb.transform_data(op.join(data_path, 'ortho.csv'))
