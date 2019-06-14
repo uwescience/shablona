@@ -8,8 +8,8 @@ will make it easier for others to use your code, and can make it easier for you
 to port your code into other projects and collaborate with other users of this
 eco-system.
 
-To use it as a template for your own project, you will need to follow the
-instructions at the [bottom of this page](#using-shablona-as-a-template).
+To use it as a template for your own project, click the green "use this template" 
+button at the top of the front page of this repo.
 
 First, let me explain all the different moving parts that make up a small
 scientific python project, and all the elements which allow us to effectively
@@ -451,13 +451,12 @@ called `smallish`. Maybe you already have some code that you are
 interested in plugging into the module file, and some ideas about what
 the tests might look like.
 
-To use this repository as a template, you can use the Github import
-functionality. Go to [https://import.github.com](https://import.github.com).
-Under "old repository clone URL" enter: https://github.com/uwescience/shablona
+To use this repository as a template, click the green "use this template"
+button on the front page of the "shablona" repository.
 
-Under "new repository details" enter in the name field the name of your
-project. For example, enter `smallish` here. After that, you can hit the "Begin
-Import" button.
+In "Repository name" enter the name of your project. For example, enter 
+`smallish` here. After that, you can hit the "Create repository from template" 
+button.
 
 You should then be able to clone the new repo into your machine. You will want
 to change the names of the files. For example, you will want to move
