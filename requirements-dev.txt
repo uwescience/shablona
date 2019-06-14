@@ -1,0 +1,4 @@
+pytest
+coveralls
+pytest-cov
+flake8

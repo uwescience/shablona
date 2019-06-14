@@ -10,17 +10,14 @@ deploy:
     tags: true
     repo: uwescience/shablona
 
-env:
-  global:
-    - PIP_DEPS="pytest coveralls pytest-cov flake8"
 
 python:
-  - '2.7'
   - '3.6'
+  - '3.7'
 
 
 install:
-- travis_retry pip install $PIP_DEPS
+- travis_retry pip install -r requirements-dev.txt
 - travis_retry pip install -r requirements.txt
 - travis_retry pip install -e .
 
