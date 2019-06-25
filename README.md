@@ -314,7 +314,7 @@ packaging](https://the-hitchhikers-guide-to-packaging.readthedocs.org).
 Travis-CI is a system that can be used to automatically test every revision of
 your code directly from github, including testing of github pull requests,
 before they are merged into the `master` branch. This provides you with
-information needed in order to evaluate contrubutions made by others. It also
+information needed in order to evaluate contributions made by others. It also
 serves as a source of information for others interested in using or contributing
 to your project about the degree of test coverage of your project.
 
