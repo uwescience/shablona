@@ -73,3 +73,4 @@ MICRO = _version_micro
 VERSION = __version__
 PACKAGE_DATA = {'shablona': [pjoin('data', '*')]}
 REQUIRES = ["numpy"]
+PYTHON_REQUIRES = ">= 3.5"
