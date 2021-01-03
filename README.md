@@ -291,7 +291,7 @@ configuration file is in `doc/conf.py`:
 ### Installation
 
 For installation and distribution we will use the python standard
-library `distutils` module. This module uses a `setup.py` file to
+library `setuptools` module. This module uses a `setup.py` file to
 figure out how to install your software on a particular system. For a
 small project such as this one, managing installation of the software
 modules and the data is rather simple.
