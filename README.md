@@ -15,8 +15,8 @@ First, let me explain all the different moving parts that make up a small
 scientific python project, and all the elements which allow us to effectively
 share it with others, test it, document it, and track its evolution.
 
-### Organization of the  project
-
+### Organization of the  projecst
+Hello
 The project has the following structure:
 
     shablona/
