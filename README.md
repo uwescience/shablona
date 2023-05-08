@@ -438,7 +438,7 @@ with this repository, and which you could extend further:
   compiled `*.pyc` files), which should not typically be committed to
   git (see `man gitignore`)
 - `.mailmap` -- if any of the contributors used multiple names/email
-  addresses or his git commit identity is just an alias, you could
+  addresses or their git commit identity is just an alias, you could
   specify the ultimate name/email(s) for each contributor, so such
   commands as `git shortlog -sn` could take them into account (see
   `git shortlog --help`)
